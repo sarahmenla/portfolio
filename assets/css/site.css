@@ -123,11 +123,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   margin-inline: auto;
 }
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-  gap: clamp(28px, 4vw, 64px);
-  align-items: center;
-  padding: 54px 0 28px;
+  display: block;
+  padding: 64px 0 20px;
 }
 .eyebrow, .row-label {
   margin: 0 0 12px;
@@ -251,6 +248,17 @@ h1 em { font-style: italic; color: var(--accent); }
   gap: 8px;
   overflow: visible;
 }
+.card--out.card--lead { display: block; }
+.outbound {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 180px;
+  padding: 22px 22px 20px;
+  text-decoration: none;
+}
+.outbound p { max-width: 42ch; }
+.outbound .btn { margin-top: 22px; }
 .card__visual {
   border-radius: 16px;
   overflow: hidden;
