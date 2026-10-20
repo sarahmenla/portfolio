@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice agent — Case study (Golden hour)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;family=Instrument+Serif:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+.mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+.serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cs { background: var(--bg); color: var(--ink); }
+.cs a { color: inherit; }
+.cs *:focus-visible { outline: 2.5px solid var(--focus); outline-offset: 3px; border-radius: 10px; }
+.wrap { position: relative; max-width: 1168px; margin: 0 auto; padding: 0 24px; }
+
+/* reading progress */
+.cs-progress { position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 80; background: var(--acc); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
+html[data-dc-canvas] .cs-progress { display: none; }
+
+/* top bar: the same pill as the home page */
+.navlink { transition: background-color 200ms ease, color 200ms ease; }
+.navlink:hover { background: rgba(255,255,255,.7); color: #2B2328 !important; }
+.btn { transition: background-color 200ms ease, box-shadow 260ms ease, transform 150ms ease, border-color 200ms ease, color 200ms ease; }
+.btn:active { transform: translateY(1px) scale(.99); }
+.btn-dark:hover { background: #3E4A2E !important; box-shadow: 0 14px 32px rgba(43,35,40,.28); }
+.arrow { transition: transform 260ms cubic-bezier(.2,.7,.2,1); }
+a:hover .arrow { transform: translateX(4px); }
+.back:hover .arrow { transform: translateX(-4px); }
+@media (max-width: 480px) {
+  .gnav a.navlink { padding: 8px 9px !important; font-size: 13.5px !important; }
+  .gnav a.btn-dark { padding: 0 12px !important; font-size: 13.5px !important; }
+  .gnav a.btn-dark svg { display: none; }
+}
+
+/* hero */
+.cs-hero { position: relative; overflow: hidden; background: var(--hero); }
+.cs-hero .bgart { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.cs-hero .grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr); gap: 52px; align-items: center; padding-top: 108px; padding-bottom: 96px; }
+.h-oax .grid { padding-top: 168px; }
+.h-rhul .grid { padding-bottom: 236px; }
+.h-voice .grid { padding-bottom: 150px; }
+.h-bob .grid { padding-bottom: 150px; }
+.cs.dark .tool img { width: 22px; height: 22px; padding: 2px; border-radius: 50%; background: #FFFFFF; }
+.back { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: 14.5px; color: var(--soft) !important; text-decoration: none; }
+.back:hover { color: var(--ink) !important; }
+.kick { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 14px 0 18px; }
+.kind { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 999px; background: var(--accSoft); color: var(--accText); font-size: 13px; font-weight: 500; }
+.kind::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.meta { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--soft); }
+.cs-hero h1 { margin: 0; font-weight: 400; font-size: clamp(44px, 5.2vw, 68px); line-height: 1; letter-spacing: -0.04em; }
+.tagline { margin: 12px 0 0; font-size: clamp(23px, 2.3vw, 29px); line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+.summary { margin: 18px 0 0; max-width: 540px; font-size: 17px; line-height: 1.6; color: var(--soft); }
+.ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.cta { display: inline-flex; align-items: center; gap: 9px; min-height: 48px; padding: 0 20px; border-radius: 999px; font-size: 15px; font-weight: 500; text-decoration: none; }
+.cta.primary { background: var(--acc); color: var(--accInk) !important; box-shadow: 0 12px 28px var(--accShadow); }
+.cta.primary:hover { filter: brightness(1.08); box-shadow: 0 16px 34px var(--accShadow); }
+.cta.ghost { background: var(--glass); border: 1px solid var(--glassLine); color: var(--ink) !important; }
+.cta.ghost:hover { background: var(--glassHover); }
+
+/* hero visual */
+.vis { position: relative; margin: 0; }
+.frame { position: relative; border-radius: 16px; overflow: hidden; background: var(--frame); border: 1px solid var(--frameLine); box-shadow: 0 34px 80px var(--shadow), 0 4px 14px var(--shadow2); }
+.frame .bar { display: flex; align-items: center; gap: 12px; height: 34px; padding: 0 14px; background: var(--frameBar); border-bottom: 1px solid var(--frameLine); }
+.frame .dots { display: inline-flex; gap: 6px; }
+.frame .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--dot); display: block; }
+.frame .url { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11.5px; color: var(--frameText); }
+.frame .shot-img { display: block; width: 100%; object-fit: cover; }
+.vis figcaption, .cap { margin-top: 12px; font-size: 13.5px; line-height: 1.45; color: var(--soft); }
+.paper { background: #FFFFFF; padding: 10px; border-radius: 6px; box-shadow: 0 30px 70px var(--shadow), 0 3px 10px var(--shadow2); transform: rotate(-1.2deg); }
+.paper img { display: block; width: 100%; height: auto; }
+.slide { border-radius: 14px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.12); }
+.slide img { display: block; width: 100%; height: auto; }
+.illus { position: absolute; top: 12px; right: 12px; z-index: 3; padding: 4px 10px; border-radius: 999px; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; background: rgba(255,255,255,.88); color: #2B2328; }
+
+/* at a glance */
+.glance { position: relative; z-index: 3; margin-top: -54px; }
+.glance-card { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-radius: 22px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 22px 50px var(--shadow3); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%); }
+.gc { padding: 20px 24px 22px; }
+.gc + .gc { border-left: 1px solid var(--line); }
+.gk { display: block; font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--accText); }
+.gv { display: block; margin-top: 7px; font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+
+/* sections */
+.sec { padding-top: 76px; }
+.sec-h { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 22px; }
+.sec-n { font-size: 12.5px; letter-spacing: .06em; color: var(--accText); }
+.sec-h h2 { margin: 0; font-weight: 400; font-size: clamp(28px, 3vw, 38px); line-height: 1.1; letter-spacing: -0.03em; }
+.sec-h p { flex-basis: 100%; margin: 4px 0 0; font-size: 16px; line-height: 1.55; color: var(--soft); max-width: 640px; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.skill { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 16px; align-items: start; padding: 22px 24px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+.skill .ic { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 14px; background: var(--accSoft); color: var(--accText); }
+.skill h3 { margin: 2px 0 6px; font-size: 17.5px; font-weight: 600; letter-spacing: -0.01em; }
+.skill p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--soft); }
+
+/* problem / build / result */
+.story { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.st { position: relative; padding: 24px 24px 26px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+.st .lab { display: flex; align-items: center; gap: 10px; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--accText); }
+.st .lab b { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--acc); color: var(--accInk); font-weight: 500; font-size: 12px; letter-spacing: 0; }
+.st p { margin: 14px 0 0; font-size: 16px; line-height: 1.58; color: var(--ink); }
+.st.res { background: var(--resBg); border-color: var(--resLine); }
+.nums { display: grid; grid-template-columns: repeat(var(--nn), minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.num { padding: 20px 22px; border-radius: 20px; border: 1px solid var(--line); background: var(--card2); }
+.num b { display: block; font-weight: 400; font-size: clamp(28px, 3vw, 38px); line-height: 1; letter-spacing: -0.035em; color: var(--numInk); }
+.num span { display: block; margin-top: 9px; font-size: 14.5px; line-height: 1.4; color: var(--soft); }
+
+/* gallery */
+.gal { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 250px; gap: 14px; }
+.gal figure { margin: 0; display: flex; flex-direction: column; min-width: 0; }
+.gal .shot { position: relative; flex: 1; min-height: 0; display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--shotBg); cursor: zoom-in; font: inherit; color: inherit; }
+.gal .shot img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
+.gal .shot.contain img { object-fit: contain; padding: 10px; }
+.gal .shot:hover img { transform: scale(1.025); }
+.gal .shot .zoom { position: absolute; right: 10px; bottom: 10px; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: rgba(20,16,18,.62); color: #FFFFFF; opacity: 0; transition: opacity 200ms ease; }
+.gal .shot:hover .zoom, .gal .shot:focus-visible .zoom { opacity: 1; }
+.gal figcaption { margin-top: 9px; font-size: 13.5px; line-height: 1.4; color: var(--soft); }
+.gal .note { display: flex; align-items: center; padding: 26px; border-radius: 16px; background: var(--accSoft); color: var(--ink); font-size: 16px; line-height: 1.55; }
+.gal .video { position: relative; flex: 1; display: block; border-radius: 16px; overflow: hidden; text-decoration: none; border: 1px solid var(--line); }
+.gal .video img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) brightness(.62); transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
+.gal .video:hover img { transform: scale(1.03); }
+.gal .video .pl { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: #FFFFFF; font-size: 15px; font-weight: 500; }
+.gal .video .plt { padding: 7px 14px; border-radius: 999px; background: rgba(20,16,18,.78); }
+.gal .video .pl i { display: inline-flex; align-items: center; justify-content: center; width: 58px; height: 58px; border-radius: 50%; background: rgba(255,255,255,.94); color: #2B2328; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+
+/* flow diagrams (projects with no screenshots) */
+.flow { display: grid; grid-template-columns: repeat(var(--fn), minmax(0, 1fr)); gap: 14px; }
+.fs { position: relative; padding: 22px 22px 24px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+.fs .fi { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 14px; background: var(--acc); color: var(--accInk); }
+.fs h3 { margin: 16px 0 6px; font-size: 17px; font-weight: 600; }
+.fs p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--soft); }
+.fs .tagline-s { display: block; margin-top: 12px; font-size: 12px; letter-spacing: .04em; color: var(--accText); }
+.fs + .fs::before { content: ""; position: absolute; left: -14px; top: 43px; width: 14px; height: 2px; background: var(--acc); opacity: .55; }
+
+/* stack */
+.stackrow { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px 22px; align-items: start; }
+.stackrow + .stackrow { margin-top: 16px; }
+.stackrow .k { padding-top: 9px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--accText); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 14px 0 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font-size: 14.5px; color: var(--ink); }
+.tool img { width: 18px; height: 18px; object-fit: contain; }
+.tool.plain { padding-left: 14px; }
+.tool.method { background: transparent; border-style: dashed; padding-left: 14px; }
+
+/* next project */
+.next { padding-top: 84px; }
+.pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 14px; font-size: 14px; color: var(--soft); }
+.pager a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; color: var(--soft) !important; text-decoration: none; }
+.pager a:hover { color: var(--ink) !important; }
+.nextcard { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 260px; border-radius: 26px; overflow: hidden; text-decoration: none; background: var(--nbg); color: var(--nink) !important; border: 1px solid var(--nline); box-shadow: 0 30px 70px var(--shadow3); transition: transform 380ms cubic-bezier(.2,.7,.2,1), box-shadow 380ms ease; }
+.nextcard:hover { transform: translateY(-4px); box-shadow: 0 40px 90px var(--shadow3); }
+.nextcard .nt { padding: 34px 36px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.nextcard .nk { font-size: 12px; letter-spacing: .07em; text-transform: uppercase; color: var(--nacc); }
+.nextcard .nn { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.02; letter-spacing: -0.035em; }
+.nextcard .nd { font-size: 16px; line-height: 1.5; color: var(--nsoft); max-width: 420px; }
+.nextcard .ngo { display: inline-flex; align-items: center; gap: 9px; margin-top: 6px; font-size: 15px; font-weight: 500; }
+.nextcard .nv { position: relative; display: flex; align-items: center; padding: 24px 24px 24px 0; }
+.nextcard .nv > span { width: 100%; height: auto !important; aspect-ratio: 3 / 1; border-radius: 18px !important; box-shadow: 0 16px 36px var(--shadow3); }
+
+/* footer: a slim strip — each page's own colour eases into the sunset (the sky is set per page), over a low line of hills */
+.cs main { position: relative; z-index: 2; }   /* so the last card's shadow falls onto the sky instead of being clipped by it */
+.foot { position: relative; z-index: 1; overflow: hidden; margin-top: 70px; color: #2B2328; background: #EFD8CF; }
+.foot .foot-row { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; padding-top: var(--fpad, 150px); padding-bottom: 22px; }
+.foot .fe { margin: 0 0 6px; font-size: 10.5px; letter-spacing: .16em; color: #5E5058; }
+.foot .fname { margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; line-height: 1; letter-spacing: -0.01em; color: #2B2328; }
+.foot .deg { margin: 6px 0 0; font-size: 13.5px; color: #4A3F45; }
+.foot .foot-hills { position: relative; display: block; width: 100%; height: 124px; margin-top: -6px; }
+.foot .legal { position: relative; z-index: 2; margin-top: -1px; background: #4C5F44; }
+.foot .legal .in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 14px 24px 16px; font-size: 12px; color: #E9E6D8; }
+.foot *:focus-visible { outline-color: #2B2328; }
+@media (max-width: 640px) { .foot .foot-hills { height: 92px; } }
+
+/* lightbox */
+.lb { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 64px 72px; background: rgba(12,10,12,.86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.lb.open { display: flex; }
+.lb figure { margin: 0; max-width: 100%; max-height: 100%; display: flex; flex-direction: column; align-items: center; }
+.lb img { display: block; max-width: 100%; max-height: calc(100vh - 170px); border-radius: 12px; background: #FFFFFF; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.lb figcaption { margin-top: 14px; max-width: 720px; text-align: center; font-size: 15px; line-height: 1.5; color: #F2ECE6; }
+.lb button { position: absolute; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.12); color: #FFFFFF; font-size: 24px; line-height: 1; cursor: pointer; }
+.lb button:hover { background: rgba(255,255,255,.24); }
+.lb button:focus-visible { outline: 2.5px solid #FFFFFF; outline-offset: 3px; }
+.lb .x { top: 18px; right: 18px; }
+.lb .pv { left: 16px; top: 50%; margin-top: -24px; }
+.lb .nx { right: 16px; top: 50%; margin-top: -24px; }
+
+/* gentle reveal while scrolling (never in the canvas, never with reduced motion) */
+.cs-anim .rv { opacity: 0; transform: translateY(18px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+.cs-anim .rv.in { opacity: 1; transform: none; }
+html[data-dc-canvas] .rv { opacity: 1 !important; transform: none !important; }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .rise { animation: rise 900ms cubic-bezier(.2,.7,.2,1) both; }
+  .d1 { animation-delay: 60ms; } .d2 { animation-delay: 160ms; } .d3 { animation-delay: 260ms; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .floaty { animation: floaty 9s ease-in-out infinite; }
+  @keyframes wave { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.45); } }
+  .wv { animation: wave 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* narrower screens */
+@media (max-width: 980px) {
+  .cs-hero .grid { grid-template-columns: minmax(0, 1fr); gap: 34px; padding-bottom: 92px; }
+  .h-rhul .grid { padding-bottom: 190px; }
+  .glance-card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gc:nth-child(3) { border-left: 0; }
+  .gc:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .story { grid-template-columns: minmax(0, 1fr); }
+  .nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fs:nth-child(odd)::before { display: none; }
+  .gal { grid-auto-rows: 220px; }
+  .gal > * { grid-column: span 6 !important; grid-row: auto !important; }
+  .nextcard { grid-template-columns: minmax(0, 1fr); }
+  .nextcard .nv { order: -1; padding: 20px 20px 0; }
+  .cs-hero .deco { display: none; }
+}
+@media (max-width: 680px) {
+  .skills { grid-template-columns: minmax(0, 1fr); }
+  .gal { grid-auto-rows: 210px; }
+  .gal > * { grid-column: span 12 !important; }
+  .flow { grid-template-columns: minmax(0, 1fr); }
+  .fs::before { display: none; }
+  .stackrow { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .stackrow .k { padding-top: 0; }
+  .skill { grid-template-columns: 40px minmax(0, 1fr); padding: 20px; }
+  .skill .ic { width: 40px; height: 40px; }
+  .lb { padding: 64px 12px; }
+  .lb .pv, .lb .nx { top: auto; bottom: 14px; margin-top: 0; }
+}
+@media (max-width: 440px) {
+  .glance-card { grid-template-columns: minmax(0, 1fr); }
+  .gc + .gc { border-left: 0; border-top: 1px solid var(--line); }
+  .num { padding: 16px 16px 18px; }
+  .num b { font-size: 26px; }
+  .gal .note { padding: 20px; }
+}
+
+.end-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.end-btn { display: inline-flex; align-items: center; gap: 9px; min-height: 50px; padding: 0 24px; border-radius: 999px; font-size: 15.5px; font-weight: 500; text-decoration: none;
+  background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.95); color: #2B2328 !important;
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 10px 26px rgba(110,70,90,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: background-color 180ms ease, transform 150ms ease, box-shadow 220ms ease; }
+.end-btn:hover { background: rgba(255,255,255,.85); transform: translateY(-1px); }
+.end-btn.end-primary { background: #2B2328; border-color: #2B2328; color: #FBF6F2 !important; box-shadow: 0 12px 28px rgba(43,35,40,.24); }
+.end-btn.end-primary:hover { background: #3E4A2E; border-color: #3E4A2E; }
+
+.end-btns-slim { gap: 8px; justify-content: flex-start; }
+.end-btns-slim .end-btn { min-height: 42px; padding: 0 18px; font-size: 14.5px; gap: 8px; }
+
+body { background: #4C5F44; }
+</style>
+</head>
+<body>
+<div class="cs dark" style="--bg: #1C1630; --ink: #F5F1FC; --soft: #CEC5E0; --acc: #C6B3FF; --accInk: #1C1630; --accText: #C6B3FF; --accSoft: rgba(198,179,255,0.16); --accShadow: rgba(0,0,0,0.35); --card: rgba(255,255,255,.055); --card2: rgba(255,255,255,.04); --line: rgba(255,255,255,.13); --glass: rgba(255,255,255,.08); --glassLine: rgba(255,255,255,.26); --glassHover: rgba(255,255,255,.16); --frame: #16110F; --frameBar: rgba(255,255,255,.05); --frameLine: rgba(255,255,255,.14); --frameText: rgba(255,255,255,.68); --dot: rgba(255,255,255,.28); --shadow: rgba(0,0,0,.55); --shadow2: rgba(0,0,0,.35); --shadow3: rgba(0,0,0,.4); --resBg: rgba(198,179,255,0.12); --resLine: rgba(198,179,255,0.4); --numInk: #C6B3FF; --shotBg: rgba(255,255,255,.04); --focus: #C6B3FF; --deep: #120E21">
+<div class="cs-progress" aria-hidden="true"></div>
+<div class="g-topbar" style="position: sticky; top: 0; z-index: 60; height: 0; display: flex; justify-content: center; padding: 0 16px"><div style="padding-top: 22px"><nav class="gnav" aria-label="Primary" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; padding: 7px; background: rgba(255,255,255,.8); backdrop-filter: blur(22px) saturate(170%); -webkit-backdrop-filter: blur(22px) saturate(170%); border: 1px solid rgba(255,255,255,.7); border-radius: 999px; box-shadow: 0 14px 36px rgba(90,60,60,.1)"><a href="index.html" aria-label="Home" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 999px; background: rgba(255,255,255,.65); font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 20px; color: #2B2328; text-decoration: none">sm</a><a href="index.html" class="navlink" style="padding: 9px 16px; border-radius: 999px; font-size: 14px; color: #4A3F45; text-decoration: none">Work</a><a href="index.html#stack" class="navlink" style="padding: 9px 16px; border-radius: 999px; font-size: 14px; color: #4A3F45; text-decoration: none">Tech stack</a><a href="#contact" class="btn btn-dark" style="display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #2B2328; color: #FBF6F2; font-size: 14px; font-weight: 500; text-decoration: none"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="2"></rect><path d="M3.5 6.5l6.5 4 6.5-4"></path></svg>Contact</a></nav></div></div><main><header class="cs-hero h-voice" style="--hero: linear-gradient(170deg, #2A2048 0%, #1C1630 70%)"><div class="bgart" aria-hidden="true"><svg viewBox="0 0 1440 200" preserveAspectRatio="xMidYMid slice" width="100%" height="150" aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 6px; opacity: .22"><rect class="wv" style="animation-delay: 0ms" x="9" y="92" width="7" height="16" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 97ms" x="27" y="79" width="7" height="42" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 194ms" x="45" y="63" width="7" height="74" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 291ms" x="63" y="48" width="7" height="105" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 388ms" x="81" y="37" width="7" height="127" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 485ms" x="99" y="34" width="7" height="133" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 582ms" x="117" y="40" width="7" height="120" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 679ms" x="135" y="56" width="7" height="88" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 776ms" x="153" y="80" width="7" height="41" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 873ms" x="171" y="79" width="7" height="43" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 970ms" x="189" y="53" width="7" height="95" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1067ms" x="207" y="32" width="7" height="136" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1164ms" x="225" y="21" width="7" height="158" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1261ms" x="243" y="20" width="7" height="160" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1358ms" x="261" y="30" width="7" height="140" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 55ms" x="279" y="48" width="7" height="105" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 152ms" x="297" y="70" width="7" height="60" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 249ms" x="315" y="92" width="7" height="16" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 346ms" x="333" y="73" width="7" height="54" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 443ms" x="351" y="62" width="7" height="77" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 540ms" x="369" y="58" width="7" height="85" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 637ms" x="387" y="61" width="7" height="78" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 734ms" x="405" y="70" width="7" height="61" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 831ms" x="423" y="80" width="7" height="40" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 928ms" x="441" y="89" width="7" height="23" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1025ms" x="459" y="92" width="7" height="16" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1122ms" x="477" y="91" width="7" height="19" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1219ms" x="495" y="83" width="7" height="34" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1316ms" x="513" y="72" width="7" height="56" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 13ms" x="531" y="61" width="7" height="78" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 110ms" x="549" y="53" width="7" height="95" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 207ms" x="567" y="51" width="7" height="98" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 304ms" x="585" y="58" width="7" height="85" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 401ms" x="603" y="72" width="7" height="56" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 498ms" x="621" y="92" width="7" height="17" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 595ms" x="639" y="67" width="7" height="66" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 692ms" x="657" y="44" width="7" height="112" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 789ms" x="675" y="27" width="7" height="147" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 886ms" x="693" y="18" width="7" height="164" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 983ms" x="711" y="21" width="7" height="159" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1080ms" x="729" y="34" width="7" height="133" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1177ms" x="747" y="55" width="7" height="91" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1274ms" x="765" y="81" width="7" height="39" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1371ms" x="783" y="79" width="7" height="43" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 68ms" x="801" y="57" width="7" height="86" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 165ms" x="819" y="44" width="7" height="113" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 262ms" x="837" y="39" width="7" height="122" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 359ms" x="855" y="44" width="7" height="113" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 456ms" x="873" y="55" width="7" height="91" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 553ms" x="891" y="69" width="7" height="62" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 650ms" x="909" y="83" width="7" height="35" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 747ms" x="927" y="92" width="7" height="16" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 844ms" x="945" y="88" width="7" height="25" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 941ms" x="963" y="90" width="7" height="21" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1038ms" x="981" y="89" width="7" height="23" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1135ms" x="999" y="80" width="7" height="40" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1232ms" x="1017" y="73" width="7" height="55" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1329ms" x="1035" y="70" width="7" height="60" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 26ms" x="1053" y="74" width="7" height="52" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 123ms" x="1071" y="86" width="7" height="29" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 220ms" x="1089" y="82" width="7" height="36" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 317ms" x="1107" y="62" width="7" height="76" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 414ms" x="1125" y="43" width="7" height="114" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 511ms" x="1143" y="30" width="7" height="141" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 608ms" x="1161" y="24" width="7" height="152" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 705ms" x="1179" y="29" width="7" height="142" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 802ms" x="1197" y="44" width="7" height="112" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 899ms" x="1215" y="67" width="7" height="66" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 996ms" x="1233" y="90" width="7" height="20" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1093ms" x="1251" y="64" width="7" height="73" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1190ms" x="1269" y="42" width="7" height="116" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1287ms" x="1287" y="29" width="7" height="143" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 1384ms" x="1305" y="26" width="7" height="149" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 81ms" x="1323" y="33" width="7" height="135" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 178ms" x="1341" y="47" width="7" height="106" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 275ms" x="1359" y="66" width="7" height="68" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 372ms" x="1377" y="85" width="7" height="30" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 469ms" x="1395" y="84" width="7" height="32" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 566ms" x="1413" y="75" width="7" height="51" rx="3.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 663ms" x="1431" y="72" width="7" height="56" rx="3.5" fill="#C6B3FF"></rect></svg><div style="position: absolute; left: -10%; top: -30%; width: 60%; height: 100%; background: radial-gradient(closest-side, rgba(198,179,255,.22), rgba(198,179,255,0))"></div><div style="position: absolute; right: -10%; bottom: -30%; width: 60%; height: 90%; background: radial-gradient(closest-side, rgba(255,160,200,.14), rgba(255,160,200,0))"></div></div><div class="wrap grid"><div class="txt"><a class="back rise" href="index.html"><svg class="arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"></path></svg> All projects</a><div class="kick rise d1"><span class="kind">Voice AI</span><span class="meta mono">2026 · Live one-hour build · Workshop team</span></div><h1 class="rise d1">Voice agent</h1><p class="tagline serif rise d2">From an idea to an agent you can talk to, in one hour.</p><p class="summary rise d2">We built a working voice agent on AssemblyAI’s Voice Agent API, which handles listening, turn-taking, reasoning and the spoken reply in one real-time stream. I shaped the concept and built the agent, using AssemblyAI’s prompt tooling and Lovable.</p><div class="ctas rise d3"><a class="cta primary" href="#skills">Skills it shows <svg class="arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"></path></svg></a></div></div><figure class="vis rise d2"><div class="frame" style="background: #241D3B; border-color: rgba(255,255,255,.16)"><span class="illus mono">Illustration</span><div style="padding: 26px 26px 24px"><div style="display: flex; align-items: center; gap: 14px"><span style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: #C6B3FF; color: #1C1630"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></span><div><div style="font-size: 17px; font-weight: 600; color: #F5F1FC">Voice agent</div><div class="mono" style="margin-top: 3px; font-size: 12px; color: #CEC5E0">Listening…</div></div></div><svg viewBox="0 0 240 60" width="100%" height="70" aria-hidden="true" style="margin-top: 18px; display: block"><rect class="wv" style="animation-delay: 0ms" x="6" y="25" width="5" height="10" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 83ms" x="15" y="21" width="5" height="18" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 166ms" x="24" y="15" width="5" height="30" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 249ms" x="33" y="8" width="5" height="44" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 332ms" x="42" y="17" width="5" height="26" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 415ms" x="51" y="11" width="5" height="38" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 498ms" x="60" y="4" width="5" height="52" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 581ms" x="69" y="13" width="5" height="34" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 664ms" x="78" y="20" width="5" height="20" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 747ms" x="87" y="10" width="5" height="40" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 830ms" x="96" y="2" width="5" height="56" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 13ms" x="105" y="15" width="5" height="30" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 96ms" x="114" y="22" width="5" height="16" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 179ms" x="123" y="16" width="5" height="28" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 262ms" x="132" y="7" width="5" height="46" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 345ms" x="141" y="12" width="5" height="36" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 428ms" x="150" y="19" width="5" height="22" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 511ms" x="159" y="24" width="5" height="12" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 594ms" x="168" y="18" width="5" height="24" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 677ms" x="177" y="13" width="5" height="34" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 760ms" x="186" y="21" width="5" height="18" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 843ms" x="195" y="25" width="5" height="10" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 26ms" x="204" y="20" width="5" height="20" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 109ms" x="213" y="15" width="5" height="30" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 192ms" x="222" y="23" width="5" height="14" rx="2.5" fill="#C6B3FF"></rect><rect class="wv" style="animation-delay: 275ms" x="231" y="26" width="5" height="8" rx="2.5" fill="#C6B3FF"></rect></svg><div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 18px"><div style="padding: 11px 10px; border-radius: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); text-align: center"><div style="font-size: 13.5px; font-weight: 500; color: #F5F1FC">Hear</div><div class="mono" style="margin-top: 4px; font-size: 11px; color: #CEC5E0">speech to text</div></div><div style="padding: 11px 10px; border-radius: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); text-align: center"><div style="font-size: 13.5px; font-weight: 500; color: #F5F1FC">Turn</div><div class="mono" style="margin-top: 4px; font-size: 11px; color: #CEC5E0">detection</div></div><div style="padding: 11px 10px; border-radius: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); text-align: center"><div style="font-size: 13.5px; font-weight: 500; color: #F5F1FC">Think</div><div class="mono" style="margin-top: 4px; font-size: 11px; color: #CEC5E0">LLM</div></div><div style="padding: 11px 10px; border-radius: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); text-align: center"><div style="font-size: 13.5px; font-weight: 500; color: #F5F1FC">Speak</div><div class="mono" style="margin-top: 4px; font-size: 11px; color: #CEC5E0">voice</div></div></div><div class="mono" style="margin-top: 16px; font-size: 12px; color: #CEC5E0; text-align: center">one real-time stream · AssemblyAI Voice Agent API</div></div></div><figcaption>How the loop works. An illustration, not a recording.</figcaption></figure></div></header><section class="glance" aria-label="At a glance"><div class="wrap"><div class="glance-card rv"><div class="gc"><span class="gk mono">Role</span><span class="gv">Shaped the concept and built the agent</span></div><div class="gc"><span class="gk mono">Team</span><span class="gv">Workshop team</span></div><div class="gc"><span class="gk mono">When</span><span class="gv">2026, one hour, live</span></div><div class="gc"><span class="gk mono">Built with</span><span class="gv">AssemblyAI Voice Agent API, Lovable</span></div></div></div></section><section class="sec" id="skills" aria-labelledby="skills-h"><div class="wrap"><div class="sec-h rv"><span class="sec-n mono">01</span><h2 id="skills-h">Skills it shows</h2></div><div class="skills"><article class="skill rv" style="--d: 0ms"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></span><div><h3>Voice AI integration</h3><p>Built on AssemblyAI’s Voice Agent API: speech recognition, turn detection, LLM reasoning and voice in one stream.</p></div></article><article class="skill rv" style="--d: 70ms"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/></svg></span><div><h3>Prompt and conversation design</h3><p>Wrote and tuned the agent’s prompt with AssemblyAI’s prompt tooling, testing it by talking to it.</p></div></article><article class="skill rv" style="--d: 0ms"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span><div><h3>Working to a brief, fast</h3><p>Shaped a concept and cut it down to what one hour could deliver.</p></div></article><article class="skill rv" style="--d: 70ms"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 13.5h7L10 22l9-11.5h-7L13 2z"/></svg></span><div><h3>Rapid prototyping</h3><p>Lovable for the interface, so the hour went on how the agent behaves.</p></div></article></div></div></section><section class="sec" id="story" aria-labelledby="story-h"><div class="wrap"><div class="sec-h rv"><span class="sec-n mono">02</span><h2 id="story-h">Problem, build, result</h2></div><div class="story"><article class="st rv" style="--d: 0ms"><div class="lab mono"><b>1</b>Problem</div><p>One hour, live, to go from nothing to an agent that answers out loud.</p></article><article class="st rv" style="--d: 80ms"><div class="lab mono"><b>2</b>What I built</div><p>A voice loop on AssemblyAI’s Voice Agent API, a prompt written for the ear, and a Lovable interface around it.</p></article><article class="st rv res" style="--d: 160ms"><div class="lab mono"><b>3</b>Result</div><p>A working voice agent you could talk to by the end of the hour.</p></article></div><div class="nums" style="--nn: 3"><div class="num rv" style="--d: 0ms"><b>1 hour</b><span>from idea to working agent</span></div><div class="num rv" style="--d: 60ms"><b>1 stream</b><span>speech in, spoken reply out</span></div><div class="num rv" style="--d: 120ms"><b>2 tools</b><span>AssemblyAI and Lovable</span></div></div></div></section><section class="sec" id="how" aria-labelledby="how-h"><div class="wrap"><div class="sec-h rv"><span class="sec-n mono">03</span><h2 id="how-h">How it works</h2></div><div class="flow" style="--fn: 4"><article class="fs rv" style="--d: 0ms"><span class="fi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6.5 6.5 0 0 0-3.8 11.8c.5.4.8 1 .8 1.6V17h6v-.6c0-.6.3-1.2.8-1.6A6.5 6.5 0 0 0 12 3z"/></svg></span><h3>Shape</h3><p>Decide what the agent is for and what a good first reply sounds like.</p><span class="tagline-s mono">the concept, in minutes</span></article><article class="fs rv" style="--d: 80ms"><span class="fi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></span><h3>Listen</h3><p>The Voice Agent API turns live speech into text and detects when you have finished.</p><span class="tagline-s mono">speech recognition · turns</span></article><article class="fs rv" style="--d: 160ms"><span class="fi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/></svg></span><h3>Respond</h3><p>A prompt written with AssemblyAI’s tooling shapes the reply, spoken back in real time.</p><span class="tagline-s mono">LLM reasoning · voice</span></article><article class="fs rv" style="--d: 240ms"><span class="fi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 13.5h7L10 22l9-11.5h-7L13 2z"/></svg></span><h3>Demo</h3><p>A Lovable interface around it, working before the hour ran out.</p><span class="tagline-s mono">Lovable</span></article></div></div></section><section class="sec" id="stack" aria-labelledby="stack-h"><div class="wrap"><div class="sec-h rv"><span class="sec-n mono">04</span><h2 id="stack-h">Tech stack</h2></div><div class="stackrow rv"><span class="k mono">Tools and data</span><div class="chips"><span class="tool"><img src="assets/f443f93709f4b303a1171e7a73b2d7a5.svg" alt="" width="18" height="18">AssemblyAI</span><span class="tool"><img src="assets/8ac29177d616380b4660398a18e28983.svg" alt="" width="18" height="18">Lovable</span><span class="tool plain">Voice Agent API</span><span class="tool plain">Prompt tooling</span></div></div><div class="stackrow rv"><span class="k mono">Methods</span><div class="chips"><span class="tool method">Conversation design</span><span class="tool method">Prompt design</span><span class="tool method">Rapid prototyping</span></div></div></div></section><section class="next" aria-label="Keep reading"><div class="wrap"><div class="pager mono"><span>Project 8 of 11</span><a href="oaxaca.html"><svg class="arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"></path></svg> Previous: Oaxaca</a></div><a class="nextcard rv" href="sustainable-rhul.html" style="--nbg: #E3EFF7; --nink: #13283A; --nsoft: #3C5266; --nacc: #1B5B88; --nline: rgba(19,40,58,0.14)"><div class="nt"><span class="nk mono">Next project</span><span class="nn">Sustainable RHUL</span><span class="nd">A VR model of campus, coloured by carbon intensity.</span><span class="ngo">Read the case study <svg class="arrow" width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"></path></svg></span></div><div class="nv" aria-hidden="true"><span style="position: relative; display: block; height: auto; border-radius: 16px; overflow: hidden; background: #ECE4DC"><svg viewBox="0 0 300 100" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true" style="display: block"><defs><linearGradient id="rbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EAF2EA"></stop><stop offset="1" stop-color="#F3ECE2"></stop></linearGradient></defs><rect width="300" height="100" fill="url(#rbg)"></rect><path d="M10 92 L150 62 L290 92 Z" fill="#DDE6D8"></path><g transform="translate(30 46)"><path d="M0 13 L26 0 L52 13 L26 26 Z" fill="#8BC287"></path><path d="M0 13 L26 26 L26 50 L0 37 Z" fill="#5E9A5C"></path><path d="M26 26 L52 13 L52 37 L26 50 Z" fill="#5E9A5C" opacity=".78"></path><path d="M6.0 19.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M6.0 29.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M17.0 24.5 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M17.0 34.5 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path></g><g transform="translate(86 34)"><path d="M0 15 L30 0 L60 15 L30 30 Z" fill="#F0BF5E"></path><path d="M0 15 L30 30 L30 66 L0 51 Z" fill="#C9922E"></path><path d="M30 30 L60 15 L60 51 L30 66 Z" fill="#C9922E" opacity=".78"></path><path d="M6.0 21.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M6.0 31.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M6.0 41.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M17.0 26.5 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M17.0 36.5 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M17.0 46.5 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path></g><g transform="translate(146 42)"><path d="M0 14 L28 0 L56 14 L28 28 Z" fill="#E2735C"></path><path d="M0 14 L28 28 L28 56 L0 42 Z" fill="#B8483A"></path><path d="M28 28 L56 14 L56 42 L28 56 Z" fill="#B8483A" opacity=".78"></path><path d="M6.0 20.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M6.0 30.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M17.0 25.5 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path><path d="M17.0 35.5 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path></g><g transform="translate(198 52)"><path d="M0 11 L22 0 L44 11 L22 22 Z" fill="#8BC287"></path><path d="M0 11 L22 22 L22 42 L0 31 Z" fill="#5E9A5C"></path><path d="M22 22 L44 11 L44 31 L22 42 Z" fill="#5E9A5C" opacity=".78"></path><path d="M6.0 17.0 l5 2.5 v4 l-5 -2.5 z" fill="#FFF8EC" opacity=".85"></path></g><g transform="translate(214 10)"><rect width="74" height="34" rx="14" fill="#2B2328"></rect><circle cx="22" cy="17" r="9" fill="#9FD3C7"></circle><circle cx="52" cy="17" r="9" fill="#9FD3C7"></circle><rect x="33" y="24" width="8" height="10" rx="3" fill="#F4E7DA"></rect></g></svg></span></div></a></div></section></main><footer class="foot" id="contact" style="--fpad: 274px; background: linear-gradient(180deg, #1C1630 0px, #1C1630 18px, #1E1731 35px, #221932 52px, #291D34 70px, #322337 88px, #3F293A 105px, #523543 122px, #78555F 140px, #A0767C 158px, #BF9695 175px, #D8B3AB 192px, #E6C5BB 210px, #EBCFC6 228px, #EED5CC 245px, #EFD8CF 262px, #EFD8CF 280px, #F1DBCD calc(100% - 190px), #F3DFCC 100%)"><div class="wrap foot-row"><div class="foot-id"><p class="mono fe">CONTACT</p><p class="fname">Sarah Menla</p><p class="deg">Computer Science BSc &middot; Royal Holloway &middot; 2026</p></div><div class="end-btns end-btns-slim"><a class="end-btn end-primary" href="mailto:sarahmenla2004@gmail.com"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="2"></rect><path d="M3.5 6.5l6.5 4 6.5-4"></path></svg>Email</a><a class="end-btn" href="https://www.linkedin.com/in/sarah-menla" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="3"></rect><path d="M6.5 8.8V14M6.5 6v.01M10 14v-3a2 2 0 014 0v3"></path></svg>LinkedIn<span class="sr"> (opens in a new tab)</span></a><a class="end-btn" href="https://github.com/sarahmenla" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 16.5c-3 1-3-2-4.2-2.3M12.5 18v-2.8c0-.8-.2-1.3-.6-1.6 2-.2 4.1-1 4.1-4.5 0-1-.4-1.8-1-2.5.1-.3.4-1.2-.1-2.5 0 0-.8-.3-2.6 1a8.7 8.7 0 00-4.6 0c-1.8-1.3-2.6-1-2.6-1-.5 1.3-.2 2.2-.1 2.5-.6.7-1 1.5-1 2.5 0 3.5 2.1 4.3 4.1 4.5-.3.3-.5.7-.6 1.3V18"></path></svg>GitHub<span class="sr"> (opens in a new tab)</span></a></div></div><svg class="foot-hills" viewBox="0 0 1440 150" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><radialGradient id="gsslim" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FCE6C8" stop-opacity=".95"></stop><stop offset=".45" stop-color="#F9DEC6" stop-opacity=".45"></stop><stop offset="1" stop-color="#F6D9C8" stop-opacity="0"></stop></radialGradient></defs><ellipse cx="720" cy="64" rx="360" ry="120" fill="url(#gsslim)"></ellipse><circle cx="720" cy="62" r="30" fill="#FDEFD9" opacity=".92"></circle><path d="M0 54 C 160 34 300 30 440 44 C 580 58 680 32 820 38 C 960 44 1060 26 1200 32 C 1320 37 1400 46 1440 44 L1440 150 L0 150 Z" fill="#DCD3C2"></path><path d="M0 76 C 160 58 320 62 480 74 C 640 86 760 62 920 66 C 1080 70 1200 56 1340 62 C 1400 65 1430 68 1440 68 L1440 150 L0 150 Z" fill="#BEC2A5"></path><path d="M0 98 C 150 84 300 88 450 96 C 600 104 760 90 920 92 C 1080 94 1220 82 1360 88 C 1400 89 1430 91 1440 91 L1440 150 L0 150 Z" fill="#9AA683"></path><path d="M0 118 C 170 106 330 110 500 116 C 670 122 820 110 980 112 C 1140 114 1280 104 1440 110 L1440 150 L0 150 Z" fill="#728563"></path><path d="M0 136 C 200 128 380 131 560 135 C 740 139 900 130 1080 132 C 1240 134 1360 128 1440 131 L1440 150 L0 150 Z" fill="#4C5F44"></path><g fill="#4C5F44"><path transform="translate(70 150) scale(.66)" d="M0 -120 L13 -88 L7 -88 L19 -58 L11 -58 L23 -26 L4 -26 L4 0 L-4 0 L-4 -26 L-23 -26 L-11 -58 L-19 -58 L-7 -88 L-13 -88 Z"></path><path transform="translate(104 150) scale(.48)" d="M0 -120 L13 -88 L7 -88 L19 -58 L11 -58 L23 -26 L4 -26 L4 0 L-4 0 L-4 -26 L-23 -26 L-11 -58 L-19 -58 L-7 -88 L-13 -88 Z"></path><path transform="translate(1368 150) scale(.7)" d="M0 -120 L13 -88 L7 -88 L19 -58 L11 -58 L23 -26 L4 -26 L4 0 L-4 0 L-4 -26 L-23 -26 L-11 -58 L-19 -58 L-7 -88 L-13 -88 Z"></path><path transform="translate(1334 150) scale(.46)" d="M0 -120 L13 -88 L7 -88 L19 -58 L11 -58 L23 -26 L4 -26 L4 0 L-4 0 L-4 -26 L-23 -26 L-11 -58 L-19 -58 L-7 -88 L-13 -88 Z"></path></g></svg><div class="legal"><div class="wrap in mono"><span>&copy; 2026 Sarah Menla</span><span>Designed for WCAG 2.1 AA</span></div></div></footer><div class="lb" id="cs-lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden><button type="button" class="x" aria-label="Close image viewer">×</button><button type="button" class="pv" aria-label="Previous image">‹</button><figure><img alt=""><figcaption></figcaption></figure><button type="button" class="nx" aria-label="Next image">›</button></div>
+</div>
+<script>
+(function () {
+  if (window.__csPage) return;
+  window.__csPage = true;
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ticking = false;
+  // the page may be re-rendered after this runs, so everything is looked up fresh each time
+  if (!reduce) root.classList.add('cs-anim');
+  function frame() {
+    ticking = false;
+    var bar = document.querySelector('.cs-progress');
+    var h = Math.max(1, root.scrollHeight - window.innerHeight);
+    if (bar) bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, (window.pageYOffset || root.scrollTop) / h)).toFixed(4) + ')';
+    if (!root.classList.contains('cs-anim')) return;
+    var lim = window.innerHeight * 0.92;
+    var items = document.querySelectorAll('.rv:not(.in)');
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].getBoundingClientRect().top < lim) items[i].classList.add('in');
+    }
+  }
+  function kick() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', kick);
+  if (window.MutationObserver) new MutationObserver(kick).observe(root, { childList: true, subtree: true });
+  document.addEventListener('DOMContentLoaded', kick);
+  window.addEventListener('load', kick);
+  setTimeout(kick, 300); setTimeout(kick, 1200);
+  kick();
+
+  // image viewer
+  var cur = 0, back = null;
+  function lb() { return document.getElementById('cs-lb'); }
+  function shots() { return Array.prototype.slice.call(document.querySelectorAll('.gal .shot')); }
+  function show(i) {
+    var s = shots(), L = lb(); if (!s.length || !L) return;
+    cur = (i + s.length) % s.length;
+    var b = s[cur], im = L.querySelector('img');
+    im.src = b.getAttribute('data-src');
+    im.alt = b.querySelector('img').getAttribute('alt') || '';
+    L.querySelector('figcaption').textContent = b.getAttribute('data-cap');
+  }
+  function open(i, from) {
+    var L = lb(); if (!L) return;
+    back = from; show(i);
+    L.hidden = false; L.classList.add('open');
+    var many = shots().length > 1;
+    L.querySelector('.pv').style.display = many ? '' : 'none';
+    L.querySelector('.nx').style.display = many ? '' : 'none';
+    L.querySelector('.x').focus();
+  }
+  function close() {
+    var L = lb(); if (!L) return;
+    L.classList.remove('open'); L.hidden = true;
+    if (back && document.contains(back)) back.focus();
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target; if (!t || !t.closest) return;
+    var b = t.closest('.gal .shot');
+    if (b) { open(shots().indexOf(b), b); return; }
+    var L = lb(); if (!L || !L.classList.contains('open')) return;
+    if (t.closest('#cs-lb .x')) close();
+    else if (t.closest('#cs-lb .pv')) show(cur - 1);
+    else if (t.closest('#cs-lb .nx')) show(cur + 1);
+    else if (t === L) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    var L = lb(); if (!L || !L.classList.contains('open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === 'ArrowRight') show(cur + 1);
+    else if (e.key === 'Tab') {
+      var f = Array.prototype.slice.call(L.querySelectorAll('button')).filter(function (x) { return x.style.display !== 'none'; });
+      var a = f.indexOf(document.activeElement);
+      if (e.shiftKey && a <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && a === f.length - 1) { e.preventDefault(); f[0].focus(); }
+      else if (a === -1) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+})();
+</script>
+<script>
+(function () {
+  if (window.__endCopy) return;
+  window.__endCopy = true;
+  function say(btn, text) {
+    var label = btn.querySelector('.end-copy-label'), status = document.getElementById('end-status');
+    if (label) label.textContent = text;
+    if (status) status.textContent = text === 'Copied' ? 'Email address copied' : '';
+    clearTimeout(btn.__t);
+    btn.__t = setTimeout(function () { if (label) label.textContent = 'Copy'; if (status) status.textContent = ''; }, 1800);
+  }
+  function fallback(text) {
+    var t = document.createElement('textarea');
+    t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(t);
+    return ok;
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.end-copy');
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { say(btn, 'Copied'); }, function () { say(btn, fallback(text) ? 'Copied' : 'Press Ctrl+C'); });
+    } else {
+      say(btn, fallback(text) ? 'Copied' : 'Press Ctrl+C');
+    }
+  });
+})();
+</script>
+</body>
+</html>
