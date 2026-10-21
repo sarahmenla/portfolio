@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DentaCare: Case study 02 · Sarah Menla</title>
+  <meta name="description" content="Case study: DentaCare, an accessible dental care portal for adults aged 65 and over. Research, design decisions, product and evaluation.">
+  <link rel="stylesheet" href="assets/css/site.css?v=see">
+</head>
+<body data-study="dentacare">
+  <a class="skip-link" href="#main">Skip to case study</a>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__left"><a class="back-link" href="../index.html" aria-label="Back to portfolio"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"></path></svg><span class="back-link__text">Portfolio</span></a><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">S</span><span>Sarah Menla<small>HCI case studies</small></span></a></div>
+      <nav aria-label="Case studies">
+        <ul>
+          <li><a href="learning-platform.html">01 <span class="long">Education</span></a></li>
+          <li><a href="dentacare.html" aria-current="page">02 <span class="long">DentaCare</span></a></li>
+          <li><a href="accessible-fashion.html">03 <span class="long">E-commerce</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
+
+  <section class="hero" aria-labelledby="title">
+    <div class="hero__inner hero__grid">
+      <div>
+        <p class="eyebrow">Case study 02 · Healthcare</p>
+        <h1 class="display" id="title">Dental care, <em>without the confusion</em></h1>
+        <p class="lede">Appointments, notes and X-rays for adults aged 65 and over. One sitting, no phone call, no asking family for help.</p>
+        <ul class="hero__pills">
+          <li>Adults 65+</li>
+          <li>Read Aloud · A− A+</li>
+          <li>Heuristic review</li>
+        </ul>
+      </div>
+      <div class="hero__stage">
+        <div class="browser">
+          <div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Home</span></div>
+          <img src="assets/screens/i2-dashboard.jpg" width="2880" height="1800" alt="DentaCare home: Good morning, Mr Adam. An upcoming appointment card with a calendar, Thursday 18 April at 10:00 with Dr. Smith, View Details and Cancel buttons, four quick-access tiles, Read Aloud, and a Dental Emergency Call Now button.">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page">
+    <nav class="toc" aria-label="On this page">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#challenge">Challenge</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#decisions">Design decisions</a></li>
+        <li><a href="#product">The product</a></li>
+        <li><a href="#try">Try it</a></li>
+        <li><a href="#iteration">Iteration</a></li>
+        <li><a href="#system">Design system</a></li>
+        <li><a href="#evaluation">Evaluation</a></li>
+        <li><a href="#reflection">Reflection</a></li>
+      </ol>
+    </nav>
+
+    <main id="main">
+      <section class="section" id="challenge" aria-labelledby="challenge-h">
+        <div class="section__head reveal">
+          <span class="section__num">01 · The challenge</span>
+          <h2 id="challenge-h">Healthcare moved online. Its design did not move with its patients.</h2>
+        </div>
+        <div class="challenge reveal">
+          <div>
+            <p class="big">When a health website is hard to read, the cost is not frustration. It is a missed appointment or aftercare that is misunderstood.</p>
+            <div class="pains">
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 7h7M6 12h12M6 17h9"/><path d="M4 7h.01M4 12h.01"/></svg><div><b>Type that is too small</b><span>Small fonts and low contrast are the barriers older users report most.</span></div></div>
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="7" r="2"/><circle cx="6" cy="17" r="2"/><path d="M8 7h11M8 17h8M6 9v6"/></svg><div><b>Too many steps</b><span>Every extra step and every hidden message costs more working memory.</span></div></div>
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l1 4H7l1-4z"/><path d="M7 8v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg><div><b>No person nearby</b><span>The journey had to be possible alone, and still reach the clinic fast.</span></div></div>
+            </div>
+            <p class="source">Balakrishnan et al. on type, contrast and dexterity. Dixon et al. on working memory and extra steps.</p>
+          </div>
+          <div class="browser">
+            <div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Home</span></div>
+            <img src="assets/screens/i2-dashboard.jpg" width="2880" height="1800" alt="DentaCare home: the next appointment, four large tiles, Read Aloud and a Dental Emergency call.">
+          </div>
+        </div>
+        <div class="stats reveal" role="list">
+          <div class="stat" role="listitem"><b>≤2</b><span>steps from the home screen to any task</span></div>
+          <div class="stat" role="listitem"><b>4</b><span>quick-access tiles, each a clearly bounded action</span></div>
+          <div class="stat" role="listitem"><b>7</b><span>connected screens, each focused on one task</span></div>
+          <div class="stat" role="listitem"><b>40px+</b><span>minimum height for primary buttons and X-ray controls</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="research" aria-labelledby="research-h">
+        <div class="section__head reveal">
+          <span class="section__num">02 · Research</span>
+          <h2 id="research-h">Designing for Mr Adam</h2>
+        </div>
+        <div class="persona reveal">
+          <figure class="persona__sheet">
+            <img src="assets/docs/persona-adam.jpg" data-zoom loading="lazy" alt="Persona card for Mr Adam, 76, retired engineer in London with mild arthritis and reduced eyesight and hearing. Quote: I just want a website that’s clear and easy to use, I get lost when there are too many buttons.">
+            <figcaption>Persona built from research on older adults and health information.</figcaption>
+          </figure>
+          <div class="persona__lead">
+            <p class="quote">I just want a website that’s clear and easy to use. I get lost when there are too many buttons.</p>
+            <div>
+              <ul class="chips" aria-label="About Mr Adam">
+                <li>Age 76</li>
+                <li>Retired engineer</li>
+                <li>London</li>
+                <li>Mild arthritis</li>
+              </ul>
+              <p>He manages his own appointments. Small buttons, low contrast and crowded screens are what lose him.</p>
+            </div>
+          </div>
+          <ol class="needs">
+            <li data-n="1">Large text and strong contrast, on every page.</li>
+            <li data-n="2">Only what the current task needs, nothing more.</li>
+            <li data-n="3">A clear path back home from anywhere.</li>
+            <li data-n="4">Confirmation before anything that cannot be undone.</li>
+            <li data-n="5">A fast route to a human when it matters.</li>
+          </ol>
+        </div>
+        <div class="voices reveal">
+          <div>
+            <p class="voices__label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>What gets in the way</p>
+            <ul>
+              <li>Small buttons are hard to hit</li>
+              <li>Declining eyesight and hearing</li>
+              <li>Too many controls on one screen</li>
+            </ul>
+          </div>
+          <div>
+            <p class="voices__label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>What the interface must do</p>
+            <ul>
+              <li>Large text and strong contrast</li>
+              <li>One task per page</li>
+              <li>A clear path home</li>
+              <li>Confirm before anything lasting</li>
+              <li>A fast route to a person</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="decisions" aria-labelledby="decisions-h" data-theory>
+        <div class="section__head reveal">
+          <span class="section__num">03 · Design decisions</span>
+          <h2 id="decisions-h">Built on evidence about ageing, not assumptions</h2>
+        </div>
+        <p class="prose reveal">Filter by principle to see which parts of the portal it shaped.</p>
+        <div class="filters reveal" role="group" aria-label="Filter decisions by principle">
+          <button class="filter" type="button" data-key="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-key="load">Cognitive load</button>
+          <button class="filter" type="button" data-key="fitts">Fitts’s Law</button>
+          <button class="filter" type="button" data-key="nielsen">Nielsen heuristics</button>
+          <button class="filter" type="button" data-key="gestalt">Gestalt</button>
+          <button class="filter" type="button" data-key="trust">Trust</button>
+          <button class="filter" type="button" data-key="wcag">WCAG 2.1</button>
+        </div>
+        <p class="filter-status" role="status"></p>
+        <div class="decisions">
+          <article class="decision" data-tags="load"><h3>One task per page</h3><p>Appointment, treatments, notes and X-ray each get their own focused page instead of competing on one screen.</p><div class="tags"><span>Load</span></div></article>
+          <article class="decision" data-tags="nielsen load"><h3>Breadcrumbs everywhere</h3><p>The full path is always visible, so users never need to remember how they got somewhere.</p><div class="tags"><span>H1 Visibility</span><span>H6 Recognition</span></div></article>
+          <article class="decision" data-tags="fitts"><h3>Buttons for shaky hands</h3><p>Primary actions are at least 40px tall with generous padding and space around them to prevent accidental presses.</p><div class="tags"><span>Fitts</span></div></article>
+          <article class="decision" data-tags="nielsen"><h3>Cancelling asks first</h3><p>Cancelling an appointment needs explicit confirmation that describes exactly what will happen.</p><div class="tags"><span>H5 Error prevention</span><span>H9</span></div></article>
+          <article class="decision" data-tags="trust"><h3>Every note is attributed</h3><p>Clinical notes show the dentist’s name, the date and the treatment, because older users question information without credibility cues.</p><div class="tags"><span>Trust</span></div></article>
+          <article class="decision" data-tags="gestalt nielsen"><h3>Tiles with clear edges</h3><p>Four bounded quick-access tiles, and each one now opens its own page. Aftercare and Tips used to look clickable and go nowhere.</p><div class="tags"><span>Common region</span><span>H1 Visibility</span></div></article>
+          <article class="decision" data-tags="nielsen wcag"><h3>Read Aloud</h3><p>Key pages can be read out through the browser’s speech engine, at a slightly slower rate.</p><div class="tags"><span>H7 Flexibility</span><span>H10 Help</span></div></article>
+          <article class="decision" data-tags="nielsen wcag fitts"><h3>A− and A+ in the header</h3><p>Text size changes on every page, not in a settings menu. The choice is remembered between visits. The buttons are 44px so they are easy to hit.</p><div class="tags"><span>H7 Flexibility</span><span>Fitts</span></div></article>
+          <article class="decision" data-tags="nielsen trust"><h3>Line icons, always labelled</h3><p>Lucide line icons replaced emoji. Every icon sits next to a text label, so nothing depends on interpreting a symbol.</p><div class="tags"><span>H6 Recognition</span><span>H8 Minimalism</span></div></article>
+          <article class="decision" data-tags="wcag trust"><h3>Navy and white</h3><p>Blue signals trust and clinical care. Navy on white gives strong contrast; red is kept for cancel and emergency.</p><div class="tags"><span>WCAG 1.4.3</span><span>Trust</span></div></article>
+          <article class="decision" data-tags="load"><h3>Simple first, depth available</h3><p>The top-level flow stays linear, while confident users can zoom X-rays and filter treatments by month.</p><div class="tags"><span>Learnability</span></div></article>
+          <article class="decision" data-tags="nielsen"><h3>Back and Home, same place</h3><p>Back and Home Page sit in identical positions on every deep page, so their location is learnt once.</p><div class="tags"><span>H3 Control</span><span>H4 Consistency</span></div></article>
+          <article class="decision" data-tags="nielsen"><h3>Help, one press away</h3><p>A Dental Emergency call button sits on the home screen, and notes pages offer Message Dentist and Call Clinic.</p><div class="tags"><span>H3 Control</span></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="product" aria-labelledby="product-h">
+        <div class="section__head reveal">
+          <span class="section__num">04 · The product</span>
+          <h2 id="product-h">Every tile now leads somewhere</h2>
+        </div>
+        <div class="reel reveal" tabindex="0" aria-label="Screens from DentaCare. Scroll sideways.">
+          <figure><img src="assets/screens/i2-dashboard.jpg" data-zoom loading="lazy" alt="Home with the next appointment and four large action tiles."><figcaption><b>Home</b>Next appointment and four clear actions</figcaption></figure>
+          <figure><img src="assets/screens/i2-appointment.jpg" data-zoom loading="lazy" alt="Appointment details with preparation, reschedule and cancel."><figcaption><b>Appointment</b>Details, preparation and reschedule</figcaption></figure>
+          <figure><img src="assets/screens/i2-treatments.jpg" data-zoom loading="lazy" alt="Treatment history with a year and month filter."><figcaption><b>Treatments</b>History filtered by year and month</figcaption></figure>
+          <figure><img src="assets/screens/i2-notes.jpg" data-zoom loading="lazy" alt="Dentist notes with summary, aftercare and follow-up."><figcaption><b>Notes</b>Summary, aftercare and follow-up</figcaption></figure>
+          <figure><img src="assets/screens/i2-xray.jpg" data-zoom loading="lazy" alt="X-ray viewer with zoom, invert and download."><figcaption><b>X-ray</b>Zoom, invert and download</figcaption></figure>
+        </div>
+        <div class="tabs wide reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Product screens">
+            <button class="tab" role="tab" id="t-home" aria-controls="p-home" aria-selected="true">Home</button>
+            <button class="tab" role="tab" id="t-appt" aria-controls="p-appt" aria-selected="false" tabindex="-1">Appointment</button>
+            <button class="tab" role="tab" id="t-book" aria-controls="p-book" aria-selected="false" tabindex="-1">Booking</button>
+            <button class="tab" role="tab" id="t-treat" aria-controls="p-treat" aria-selected="false" tabindex="-1">Treatments</button>
+            <button class="tab" role="tab" id="t-notes" aria-controls="p-notes" aria-selected="false" tabindex="-1">Notes</button>
+            <button class="tab" role="tab" id="t-xray" aria-controls="p-xray" aria-selected="false" tabindex="-1">X-ray</button>
+            <button class="tab" role="tab" id="t-after" aria-controls="p-after" aria-selected="false" tabindex="-1">Aftercare</button>
+            <button class="tab" role="tab" id="t-tips" aria-controls="p-tips" aria-selected="false" tabindex="-1">Tips</button>
+            <button class="tab" role="tab" id="t-login" aria-controls="p-login" aria-selected="false" tabindex="-1">Sign in</button>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-home" aria-labelledby="t-home" tabindex="0">
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Home</span></div><img src="assets/screens/i2-dashboard.jpg" data-zoom loading="lazy" alt="Home dashboard with upcoming appointment, calendar, four quick-access tiles, A− and A+ in the header, Read Aloud and the Dental Emergency call button."></div>
+            <div><span class="label">Home</span><h3>What is next, first</h3><p>The upcoming appointment and a calendar lead the page, so the most time-critical information needs no scrolling. A− and A+ in the header change the text size on every page and remember the choice.</p><ul><li>All four tiles open a page</li><li>Read Aloud in two places</li><li>Emergency call on the first screen</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-appt" aria-labelledby="t-appt" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Appointment</span></div><img src="assets/screens/i2-appointment.jpg" data-zoom loading="lazy" alt="Appointment details page showing reason, dentist, location, what will be done, preparation reminders and reschedule and cancel actions."></div>
+            <div><span class="label">Appointment</span><h3>Everything about the visit</h3><p>Reason, dentist, location, duration and a confirmation reference, plus reminders about how to prepare.</p><ul><li>Reschedule and cancel both confirm first</li><li>Breadcrumb back to home</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-book" aria-labelledby="t-book" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Book appointment</span></div><img src="assets/screens/i2-book.jpg" data-zoom loading="lazy" alt="Book appointment page with large date and time choices."></div>
+            <div><span class="label">Booking</span><h3>Step by step</h3><p>Booking breaks into clear steps with large choices, and ends with a confirmation reference.</p><ul><li>One decision at a time</li><li>Clear labels, no jargon</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-treat" aria-labelledby="t-treat" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · My Treatments</span></div><img src="assets/screens/i2-treatments.jpg" data-zoom loading="lazy" alt="My Treatments page with a year and month filter and a chronological list of past treatments with View Notes links."></div>
+            <div><span class="label">Treatments</span><h3>History, filtered simply</h3><p>A chronological list of past visits, narrowed by year and month without leaving the page.</p><ul><li>Filtering happens instantly</li><li>Each visit links to its notes</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-notes" aria-labelledby="t-notes" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Dentist notes</span></div><img src="assets/screens/i2-notes.jpg" data-zoom loading="lazy" alt="Dentist notes page with treatment summary, aftercare, follow-up advice, an X-ray attachment, and Message Dentist and Call Clinic buttons."></div>
+            <div><span class="label">Notes</span><h3>Understand what was done</h3><p>Treatment, date and dentist up front, then summary, aftercare and follow-up advice in clearly separated blocks.</p><ul><li>Attributed to a named dentist</li><li>Message Dentist and Call Clinic</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-xray" aria-labelledby="t-xray" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · X-ray</span></div><img src="assets/screens/i2-xray.jpg" data-zoom loading="lazy" alt="X-ray viewer showing a dental radiograph with zoom out, zoom level, zoom in, Reset and Invert controls, and a Download button."></div>
+            <div><span class="label">X-ray</span><h3>Your X-ray, in your hands</h3><p>Zoom, invert and download an X-ray to share with another clinician. The toolbar uses 40px targets.</p><ul><li>Invert helps some users read detail</li><li>Download in one press</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-after" aria-labelledby="t-after" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Aftercare</span></div><img src="assets/screens/i2-aftercare.jpg" data-zoom loading="lazy" alt="Aftercare and Medications page showing instructions from a 10 January 2025 filling, follow-up advice, medicines on record, Full notes, Call Clinic and Read Aloud."></div>
+            <div><span class="label">Aftercare</span><h3>One step from home</h3><p>The Aftercare tile now opens the latest visit’s instructions, instead of sitting there looking clickable and doing nothing.</p><ul><li>Uses the same aftercare as the notes page</li><li>Call Clinic and Read Aloud on the page</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-tips" aria-labelledby="t-tips" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Tips</span></div><img src="assets/screens/i2-tips.jpg" data-zoom loading="lazy" alt="Dental Tips and Facts page with five short cards: brush twice a day, clean between your teeth, go easy on sugar, book a check-up, and pain that lasts."></div>
+            <div><span class="label">Tips</span><h3>Short advice, large type</h3><p>Five practical facts, one idea each, with Read Aloud. This tile also used to lead nowhere.</p><ul><li>Still one step from home</li><li>Plain language, no jargon</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-login" aria-labelledby="t-login" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">dentacare · Sign in</span></div><img src="assets/screens/i2-login.jpg" data-zoom loading="lazy" alt="DentaCare sign-in card with email and password fields, a Sign In button, and a phone number for help."></div>
+            <div><span class="label">Sign in</span><h3>A human is always listed</h3><p>A simple two-field sign-in with a clear error message and the clinic’s phone number right below it.</p><ul><li>Plain-language errors</li><li>Help without leaving the page</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="try" aria-labelledby="try-h">
+        <div class="section__head reveal">
+          <span class="section__num">05 · Try it</span>
+          <h2 id="try-h">Hear it. Zoom it. Check it.</h2>
+        </div>
+        <p class="prose reveal">Three product behaviours you can use right here. The Read Aloud text and speed match the real home page.</p>
+        <div class="demo reveal" id="readaloud-demo">
+          <div class="demo__head"><strong>Read Aloud</strong><span>Web Speech API · rate 0.9</span></div>
+          <div class="demo__body">
+            <div class="ra">
+              <div class="ra__card">
+                <small>Upcoming appointment</small>
+                <p class="ra__text">Good morning Mr Adam. You have an upcoming appointment on Thursday 18 April at 10:00 with Dr. Smith in Clinic Room 2.</p>
+              </div>
+              <button class="btn" type="button" data-speak aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg> Read Aloud</button>
+            </div>
+            <p class="ra__note">Words highlight as they are spoken in browsers that report word positions.</p>
+          </div>
+        </div>
+        <div class="split split--top wide">
+          <div class="demo reveal" id="xray-demo">
+            <div class="demo__head"><strong>X-ray viewer</strong><span>Zoom and invert</span></div>
+            <div class="demo__body">
+              <div class="xr__stage">
+                <img src="assets/demo/xray.jpg" alt="Dental X-ray of the lower molars.">
+                <div class="xr__toolbar" role="toolbar" aria-label="X-ray controls">
+                  <button type="button" data-zoom-out aria-label="Zoom out">−</button>
+                  <span class="xr__level" aria-live="polite">100%</span>
+                  <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+                  <button type="button" data-reset>Reset</button>
+                  <button type="button" data-invert aria-pressed="false">Invert</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo reveal">
+            <div class="demo__head"><strong>Contrast check</strong><span>WCAG 2.1 formula, live</span></div>
+            <div class="demo__body">
+              <div class="swatches" style="grid-template-columns:1fr">
+                <div class="swatch" data-contrast="#083759,#ffffff"><div class="swatch__sample" style="color:#083759;background:#fff;font-family:'Playfair Display',serif">Headings · Good morning</div><div class="swatch__meta"><span>#083759 on white</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+                <div class="swatch" data-contrast="#ffffff,#0e4a73"><div class="swatch__sample" style="color:#fff;background:#0e4a73">Header · DentaCare</div><div class="swatch__meta"><span>White on #0E4A73</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+                <div class="swatch" data-contrast="#ffffff,#1a6fa8"><div class="swatch__sample" style="color:#fff;background:#1a6fa8">Button · Book Appointment</div><div class="swatch__meta"><span>White on #1A6FA8</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="iteration" aria-labelledby="iteration-h">
+        <div class="section__head reveal">
+          <span class="section__num">06 · Iteration</span>
+          <h2 id="iteration-h">Why the emoji had to go</h2>
+        </div>
+        <div class="split split--top reveal">
+          <div class="prose">
+            <p>The first version used emoji on the home tiles and buttons. On reflection, three problems made them wrong for this audience:</p>
+            <p><strong>They render differently everywhere.</strong> The same character can look different on an older device or browser than on the designer’s laptop.</p>
+            <p><strong>They assume familiarity.</strong> Emoji conventions come from social media; older adults have less experience inferring meaning from them.</p>
+            <p><strong>They carry the wrong tone.</strong> Informal, emotional symbols undermine the trustworthy, clinical feel that older users need from health information.</p>
+            <p>Lucide line icons replaced them everywhere: monochrome, identical on every platform, and always paired with a label.</p>
+          </div>
+          <div class="card card--tint">
+            <span class="label">Illustration · emoji vs line icons</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px">
+              <div style="text-align:center;padding:18px 10px;border-radius:12px;background:#fff;border:1px solid var(--line)"><div style="font-size:34px" aria-hidden="true">📅 🦷 💊</div><p style="margin:8px 0 0;font-size:13px">Emoji: varies by device, informal</p></div>
+              <div style="text-align:center;padding:18px 10px;border-radius:12px;background:#fff;border:1px solid var(--line)"><div style="display:flex;justify-content:center;gap:14px;color:#0e4a73" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></div><p style="margin:8px 0 0;font-size:13px">Line icons: consistent, calm, labelled</p></div>
+            </div>
+          </div>
+        </div>
+        <p class="prose wide reveal">The wider design path, from structure to code:</p>
+        <div class="tabs wide reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Design stages">
+            <button class="tab" role="tab" id="t-stage-wire" aria-controls="p-stage-wire" aria-selected="true">1 · Wireframe</button>
+            <button class="tab" role="tab" id="t-stage-proto" aria-controls="p-stage-proto" aria-selected="false" tabindex="-1">2 · Prototype</button>
+            <button class="tab" role="tab" id="t-stage-built" aria-controls="p-stage-built" aria-selected="false" tabindex="-1">3 · Built product</button>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-wire" aria-labelledby="t-stage-wire" tabindex="0">
+            <figure class="stage">
+              <div class="stage__media"><img src="assets/docs/i2-wireframe.png" data-zoom loading="lazy" alt="Grey low-fidelity wireframes linked by arrows: the home dashboard with a calendar, four tiles and an emergency call button; My Treatments with a year grid and a list of visits; dentist notes with aftercare and follow-up advice; and the X-ray page with zoom and download."></div>
+              <figcaption><b>Low fidelity · Figma</b><span>Set the route before any styling: dashboard → appointment → treatments → notes → X-ray, with no task more than two steps from the dashboard. Tsai et al. show that linear structures reduce working-memory demands for older adults.</span></figcaption>
+            </figure>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-proto" aria-labelledby="t-stage-proto" tabindex="0" hidden>
+            <figure class="stage">
+              <div class="stage__media"><img src="assets/docs/i2-prototype.png" data-zoom loading="lazy" alt="High-fidelity prototype flow in Figma: home, My Treatments with year and month grid, dentist notes, and the X-ray page, each with Read Aloud and A− A+ controls."></div>
+              <figcaption><b>High fidelity · Figma</b><span>Seven connected screens, each with the same navy header and breadcrumb, plus Read Aloud and A− A+ on every screen.</span></figcaption>
+            </figure>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-built" aria-labelledby="t-stage-built" tabindex="0" hidden>
+            <figure class="stage">
+              <div class="stage__media stage__media--flow">
+                <ol class="stage__flow">
+                  <li><span>Home</span><img src="assets/screens/i2-dashboard.jpg" data-zoom loading="lazy" alt="Home dashboard with upcoming appointment, calendar, four quick-access tiles, Read Aloud and the Dental Emergency call button."></li>
+                  <li><span>My Treatments</span><img src="assets/screens/i2-treatments.jpg" data-zoom loading="lazy" alt="My Treatments page with a year and month filter and a chronological list of past treatments with View Notes links."></li>
+                  <li><span>Dentist notes</span><img src="assets/screens/i2-notes.jpg" data-zoom loading="lazy" alt="Dentist notes page with treatment summary, aftercare, follow-up advice, an X-ray attachment, and Message Dentist and Call Clinic buttons."></li>
+                  <li><span>X-ray</span><img src="assets/screens/i2-xray.jpg" data-zoom loading="lazy" alt="X-ray viewer showing a dental radiograph with zoom out, zoom level, zoom in, Reset and Invert controls, and a Download button."></li>
+                </ol>
+              </div>
+              <figcaption><b>Built · React</b><span>The coded portal keeps the route and its depth: notes and X-rays both open straight from My Treatments, two steps from home. All four home tiles now open a page, and A− and A+ live in the header on every screen, with the choice remembered between visits.</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="system" aria-labelledby="system-h">
+        <div class="section__head reveal">
+          <span class="section__num">07 · Design system</span>
+          <h2 id="system-h">Clinical, warm and readable</h2>
+        </div>
+        <div class="palette reveal">
+          <div><i style="background:#0e4a73"></i><span><b>Navy</b>#0E4A73 · header</span></div>
+          <div><i style="background:#1a6fa8"></i><span><b>Clinic blue</b>#1A6FA8 · primary actions</span></div>
+          <div><i style="background:#e4f2fb"></i><span><b>Mist</b>#E4F2FB · highlight cards</span></div>
+          <div><i style="background:linear-gradient(90deg,#ef4444 50%,#dc2626 50%)"></i><span><b>Alert red</b>#EF4444 cancel · #DC2626 emergency</span></div>
+          <div><i style="background:#ffffff"></i><span><b>White</b>Page background</span></div>
+        </div>
+        <div class="wide specs reveal">
+          <div class="spec"><b>Serif + sans</b><span>Playfair Display headings (24–32px) with DM Sans body text</span></div>
+          <div class="spec"><b>24–28px</b><span>Inner padding on containers, 20px+ between elements</span></div>
+          <div class="spec"><b>40px</b><span>Minimum height for primary buttons and X-ray tools</span></div>
+          <div class="spec"><b>Label + icon</b><span>Every icon is paired with a word, on every control</span></div>
+        </div>
+        <figure class="wide reveal">
+          <img class="shot" src="assets/docs/i2-uml.png" data-zoom loading="lazy" alt="UML class diagram for DentaCare with Layout at the root, five page classes, shared components, hooks and data models.">
+          <figcaption>Architecture: a shared <code>Layout</code>, focused pages, reusable <code>Breadcrumb</code>, <code>PageTop</code> and <code>NoteBlock</code> components, and a <code>useReadAloud</code> hook.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section" id="evaluation" aria-labelledby="evaluation-h">
+        <div class="section__head reveal">
+          <span class="section__num">08 · Evaluation</span>
+          <h2 id="evaluation-h">An expert review, with the gap stated plainly</h2>
+        </div>
+        <div class="status reveal" role="note">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <p><strong>Not yet tested with older adults.</strong> DentaCare was completed in Term 2 and there was not enough time left to recruit, run and analyse sessions. The evaluation below is a structured heuristic review, which finds likely issues but does not replace observing real users.</p>
+        </div>
+        <div class="wide reveal" data-heuristics>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">Heuristic evaluation for DentaCare</caption>
+              <thead><tr><th scope="col">Heuristic</th><th scope="col">Evidence in the product</th><th scope="col">Result</th></tr></thead>
+              <tbody>
+                <tr data-result="pass"><td>H1 Visibility of status</td><td>Breadcrumb trail on every page; confirmation reference after booking</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H2 Match the real world</td><td>Clinical language; calendar, document and phone icons map to their real referents</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H3 User control</td><td>Back and Home Page on every deep page; confirmation before cancelling</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H4 Consistency</td><td>Identical Back and Home placement; one primary action colour throughout</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H5 Error prevention</td><td>Cancellation requires explicit confirmation</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H6 Recognition over recall</td><td>Every icon labelled; breadcrumb shows the full path</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H7 Flexibility</td><td>Read Aloud as an alternative to reading; A− and A+ on every page; month filter for confident users</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H8 Minimalist design</td><td>Home shows only the next appointment and four tiles</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H9 Recover from errors</td><td>Confirmation dialogs describe the action; empty states explain themselves</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="pass"><td>H10 Help</td><td>Read Aloud; preparation reminders on the appointment page</td><td><span class="pill pill--pass">Pass</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="reflection" aria-labelledby="reflection-h">
+        <div class="section__head reveal">
+          <span class="section__num">09 · Reflection</span>
+          <h2 id="reflection-h">What I would do next</h2>
+        </div>
+        <div class="decisions reveal">
+          <article class="decision"><h3>Test with five older adults</h3><p>Nielsen’s five-user benchmark is the clear next step, run with think-aloud tasks based on the three journeys.</p></article>
+          <article class="decision"><h3>Emergency on every page</h3><p>Extend the home screen’s emergency call into a persistent banner, as designed, so help is never more than one press away.</p></article>
+          <article class="decision"><h3>Measure effort</h3><p>Add a simple workload measure such as NASA-TLX to check that fewer steps actually feel easier.</p></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a class="next" href="accessible-fashion.html">
+    <div class="next__card">
+      <div><small>Next case study · 03</small><strong>Clothes shopping</strong><span>An e-commerce platform built for screen readers first.</span></div>
+      <img src="assets/screens/i3-product.jpg" alt="" aria-hidden="true">
+    </div>
+  </a>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span>Sarah Menla · BSc (Hons) Computer Science final-year project, Royal Holloway, University of London</span>
+      <span><a href="index.html">All case studies</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js?v=see"></script>
+<script>(function () { try { var k = 'hciReturn', r = document.referrer, s = window.sessionStorage; if (r && r.indexOf('/hci-case-studies/') < 0 && new URL(r).origin === location.origin) s.setItem(k, r); var b = document.querySelector('.back-link'), v = s.getItem(k); if (b && v) b.setAttribute('href', v); } catch (e) {} })();</script>
+</body>
+</html>

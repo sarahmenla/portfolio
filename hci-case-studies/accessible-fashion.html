@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clothes shopping: Case study 03 · Sarah Menla</title>
+  <meta name="description" content="Case study: an accessible e-commerce platform for women with visual impairments, built for keyboard and screen-reader use first.">
+  <link rel="stylesheet" href="assets/css/site.css?v=see">
+</head>
+<body data-study="fashion">
+  <a class="skip-link" href="#main">Skip to case study</a>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__left"><a class="back-link" href="../index.html" aria-label="Back to portfolio"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"></path></svg><span class="back-link__text">Portfolio</span></a><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">S</span><span>Sarah Menla<small>HCI case studies</small></span></a></div>
+      <nav aria-label="Case studies">
+        <ul>
+          <li><a href="learning-platform.html">01 <span class="long">Education</span></a></li>
+          <li><a href="dentacare.html">02 <span class="long">DentaCare</span></a></li>
+          <li><a href="accessible-fashion.html" aria-current="page">03 <span class="long">E-commerce</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
+
+  <section class="hero" aria-labelledby="title">
+    <div class="hero__inner hero__grid">
+      <div>
+        <p class="eyebrow">Case study 03 · E-commerce</p>
+        <h1 class="display" id="title">Clothes shopping, <em>without sighted help</em></h1>
+        <p class="lede">An e-commerce platform for women with visual impairments. Colour, size, fabric and the bag all work from the first key press.</p>
+        <ul class="hero__pills">
+          <li>Keyboard first</li>
+          <li>WCAG 2.1 audit</li>
+          <li>React · Vite</li>
+        </ul>
+      </div>
+      <div class="hero__stage">
+        <div class="browser">
+          <div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · Chunky Knit Jumper</span></div>
+          <img src="assets/screens/i3-product-success.jpg" width="2880" height="1800" alt="Product page for the Chunky Knit Jumper at £49.99: Cream colour and size M selected, and a green confirmation reading Chunky Knit Jumper in Cream, size M, added to your bag. Press B to view your bag.">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page">
+    <nav class="toc" aria-label="On this page">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#challenge">Challenge</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#decisions">Design decisions</a></li>
+        <li><a href="#try">Try it</a></li>
+        <li><a href="#product">The product</a></li>
+        <li><a href="#modes">Dark mode</a></li>
+        <li><a href="#system">Design system</a></li>
+        <li><a href="#evaluation">Evaluation</a></li>
+        <li><a href="#reflection">Reflection</a></li>
+      </ol>
+    </nav>
+
+    <main id="main">
+      <section class="section" id="challenge" aria-labelledby="challenge-h">
+        <div class="section__head reveal">
+          <span class="section__num">01 · The challenge</span>
+          <h2 id="challenge-h">E-commerce sites are built to be looked at</h2>
+        </div>
+        <div class="challenge reveal">
+          <div>
+            <p class="big">For a screen reader user, a swatch with no name, a filter that only works on hover or a checkout that times out is a locked door.</p>
+            <div class="pains">
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/></svg><div><b>Colour with no name</b><span>A swatch that is only a colour cannot be chosen without sight.</span></div></div>
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l4-8 3 5 2-3 5 6"/><path d="M4 19h16"/></svg><div><b>Hover, or nothing</b><span>Filters and menus that need a pointer never reach a keyboard.</span></div></div>
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 4h8l4 4v12H7z"/><path d="M15 4v4h4M9 13h6M9 17h4"/></svg><div><b>A photo, and no feel</b><span>Descriptions skip fabric, texture and fit, so the garment stays invisible.</span></div></div>
+            </div>
+            <p class="source">These are design failures, not a property of visual impairment. Prati et al. on sites that pass a checklist and still fail their users.</p>
+          </div>
+          <div class="browser">
+            <div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · Chunky Knit Jumper</span></div>
+            <img src="assets/screens/i3-product.jpg" width="2880" height="1800" alt="Product page with the jumper, named colours Cream and Grey, and sizes written as words.">
+          </div>
+        </div>
+        <div class="stats reveal" role="list">
+          <div class="stat" role="listitem"><b>$781.5bn</b><span>global fashion e-commerce market in 2023</span></div>
+          <div class="stat" role="listitem"><b>4</b><span>navigation categories, to keep sequential browsing short</span></div>
+          <div class="stat" role="listitem"><b>52px</b><span>minimum height of Add to bag, the largest target on the page</span></div>
+          <div class="stat" role="listitem"><b>0</b><span>hover-only controls, timeouts or auto-advancing carousels</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="research" aria-labelledby="research-h">
+        <div class="section__head reveal">
+          <span class="section__num">02 · Research</span>
+          <h2 id="research-h">Designing for Maya</h2>
+        </div>
+        <div class="persona reveal">
+          <figure class="persona__sheet">
+            <img src="assets/docs/persona-maya.jpg" data-zoom loading="lazy" alt="Persona card for Maya, 29, teacher, registered blind since birth, using NVDA on a laptop and VoiceOver on iPhone. Quote: I know what I like — I just want to buy it without needing someone else’s help.">
+            <figcaption>Persona built from research on blind and low-vision online shoppers.</figcaption>
+          </figure>
+          <div class="persona__lead">
+            <p class="quote">I know what I like — I just want to buy it without needing someone else’s help.</p>
+            <div>
+              <ul class="chips" aria-label="About Maya">
+                <li>Age 29</li>
+                <li>Teacher</li>
+                <li>Blind since birth</li>
+                <li>NVDA · VoiceOver</li>
+              </ul>
+              <p>She loves clothes and often needs sighted help to finish a purchase. Six requirements could not be dropped.</p>
+            </div>
+          </div>
+          <ol class="needs">
+            <li data-n="1">Everything works by keyboard alone: no hover, drag or mouse.</li>
+            <li data-n="2">Every colour has a plain-English name, not just a swatch.</li>
+            <li data-n="3">Descriptions cover fabric, texture, fit, weight and sizing.</li>
+            <li data-n="4">A skip link bypasses repeated header content.</li>
+            <li data-n="5">Every control has a descriptive accessible name.</li>
+            <li data-n="6">A short, linear purchase with no time limits.</li>
+          </ol>
+        </div>
+        <div class="voices reveal">
+          <div>
+            <p class="voices__label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>What gets in the way</p>
+            <ul>
+              <li>Missing alternative text</li>
+              <li>Hover-only colour selectors</li>
+              <li>Filters the keyboard cannot reach</li>
+              <li>Descriptions that never mention fabric or fit</li>
+            </ul>
+          </div>
+          <div>
+            <p class="voices__label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>What the interface must do</p>
+            <ul>
+              <li>Work from the keyboard alone</li>
+              <li>Name every colour in words</li>
+              <li>Describe fabric, texture and fit</li>
+              <li>Keep the purchase short and linear</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="decisions" aria-labelledby="decisions-h" data-theory>
+        <div class="section__head reveal">
+          <span class="section__num">03 · Design decisions</span>
+          <h2 id="decisions-h">Accessibility as the design, not a layer on top</h2>
+        </div>
+        <p class="prose reveal">Filter by principle or source to see what each one changed.</p>
+        <div class="filters reveal" role="group" aria-label="Filter decisions by principle">
+          <button class="filter" type="button" data-key="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-key="wcag">WCAG 2.1</button>
+          <button class="filter" type="button" data-key="nielsen">Nielsen heuristics</button>
+          <button class="filter" type="button" data-key="hick">Hick’s Law</button>
+          <button class="filter" type="button" data-key="fitts">Fitts’s Law</button>
+          <button class="filter" type="button" data-key="research">Shopper research</button>
+        </div>
+        <p class="filter-status" role="status"></p>
+        <div class="decisions">
+          <article class="decision" data-tags="wcag"><h3>Skip to content first</h3><p>The first Tab stop on every page jumps past the header, so it is not read again on each page.</p><div class="tags"><span>WCAG 2.4.1</span></div></article>
+          <article class="decision" data-tags="wcag research"><h3>Colours as radio buttons</h3><p>Colour and size are radio groups, not dropdowns: every option is visible and says its name, like “Colour Cream, currently selected”.</p><div class="tags"><span>WCAG 4.1.2</span><span>Samreen</span></div></article>
+          <article class="decision" data-tags="wcag nielsen"><h3>Announced, not moved</h3><p>Adding to the bag is confirmed through a live region while focus stays on the product. Jumping to the bag was rejected because it breaks browsing.</p><div class="tags"><span>WCAG 4.1.3</span><span>H1 Visibility</span></div></article>
+          <article class="decision" data-tags="nielsen"><h3>Blocked until ready</h3><p>Add to bag will not proceed without a size, and says exactly what is missing and how to fix it.</p><div class="tags"><span>H5 Prevention</span><span>H9 Recovery</span></div></article>
+          <article class="decision" data-tags="research"><h3>Descriptions that replace the photo</h3><p>About, Material, Fit, Origin, Delivery and Returns sit in labelled rows, each with its own Hear button. Material adds a close-up of the knit.</p><div class="tags"><span>Nicoson &amp; Ha-Brookshire</span></div></article>
+          <article class="decision" data-tags="hick"><h3>Four categories</h3><p>All, Tops, Dresses and Bottoms. When you cannot scan a menu, every extra option costs another announcement.</p><div class="tags"><span>Hick</span></div></article>
+          <article class="decision" data-tags="fitts"><h3>The biggest target wins</h3><p>Add to bag is full width and at least 52px tall; colour and size options are 44px.</p><div class="tags"><span>Fitts</span></div></article>
+          <article class="decision" data-tags="wcag research"><h3>Reading order equals decision order</h3><p>Name, price, colour, size, Add to bag, then the details. The DOM follows the order in which people decide.</p><div class="tags"><span>WCAG 2.4.3</span><span>Prati et al.</span></div></article>
+          <article class="decision" data-tags="nielsen"><h3>A keyboard guide with a voice</h3><p>One toggle adds a shortcut bar (H for home, B for the bag) and speaks each control’s name, role and state as it gains focus.</p><div class="tags"><span>H7 Flexibility</span><span>H10 Help</span></div></article>
+          <article class="decision" data-tags="wcag"><h3>Dark mode and larger text</h3><p>Two header toggles on every page. Dark mode switches to white on black; large text raises every font size one step.</p><div class="tags"><span>WCAG 1.4.6</span><span>1.4.4</span></div></article>
+          <article class="decision" data-tags="wcag research"><h3>Colour is never the only signal</h3><p>Swatches have names, errors have words, and the bag count lives in the Bag button’s label, not only in a badge.</p><div class="tags"><span>WCAG 1.4.1</span></div></article>
+          <article class="decision" data-tags="nielsen research"><h3>One structure everywhere</h3><p>Header, breadcrumb, content, actions: the same order on every page, so the mental model holds.</p><div class="tags"><span>H4 Consistency</span><span>Prati et al.</span></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="try" aria-labelledby="try-h">
+        <div class="section__head reveal">
+          <span class="section__num">04 · Try it</span>
+          <h2 id="try-h">Hear the product the way Maya does</h2>
+        </div>
+        <p class="prose reveal">Use <span class="kbd">Tab</span> to move into the product, then the arrow keys to choose. The output panel shows what a screen reader announces, using the product’s own labels and messages. Try Add to bag before choosing a size.</p>
+        <div class="demo reveal" id="sr-demo">
+          <div class="sr">
+            <div class="sr__product">
+              <h3>Chunky Knit Jumper</h3>
+              <p class="sr__price">£49.99</p>
+              <div class="sr__group" data-group="colour">
+                <span id="sr-colour">Colour</span>
+                <div class="sr__radios" role="radiogroup" aria-labelledby="sr-colour">
+                  <button type="button" role="radio" aria-checked="true" tabindex="0" data-value="Cream"><i style="background:#f5f0e8" aria-hidden="true"></i>Cream</button>
+                  <button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="Grey"><i style="background:#9a9a9a" aria-hidden="true"></i>Grey</button>
+                </div>
+              </div>
+              <div class="sr__group" data-group="size">
+                <span id="sr-size">Size</span>
+                <div class="sr__radios" role="radiogroup" aria-labelledby="sr-size">
+                  <button type="button" role="radio" aria-checked="false" tabindex="0" data-value="XS">XS</button>
+                  <button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="S">S</button>
+                  <button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="M">M</button>
+                  <button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="L">L</button>
+                  <button type="button" role="radio" aria-checked="false" tabindex="-1" data-value="XL">XL</button>
+                </div>
+              </div>
+              <button class="sr__add" type="button" data-add>Add to bag</button>
+              <p class="sr__bag">Items in bag: <b>0</b></p>
+            </div>
+            <div class="sr__panel">
+              <header><strong>Screen reader output</strong><div><button type="button" data-voice aria-pressed="false">Voice off</button><button type="button" data-clear>Reset</button></div></header>
+              <ol class="sr__log" aria-live="off"></ol>
+            </div>
+          </div>
+          <p class="demo__hint">Turn on Voice to hear each announcement with your browser’s speech engine.</p>
+        </div>
+      </section>
+
+      <section class="section" id="product" aria-labelledby="product-h">
+        <div class="section__head reveal">
+          <span class="section__num">05 · The product</span>
+          <h2 id="product-h">Browse, choose, bag: every step spoken</h2>
+        </div>
+        <div class="reel reveal" tabindex="0" aria-label="Screens from the e-commerce platform. Scroll sideways.">
+          <figure><img src="assets/screens/i3-skip-link.jpg" data-zoom loading="lazy" alt="Skip to main content focused at the top of the page."><figcaption><b>Skip link</b>First Tab jumps to the content</figcaption></figure>
+          <figure><img src="assets/screens/i3-home.jpg" data-zoom loading="lazy" alt="Clothing listing with four categories and a product card."><figcaption><b>Browse</b>Arrow keys move through products</figcaption></figure>
+          <figure><img src="assets/screens/i3-product.jpg" data-zoom loading="lazy" alt="Product page with colours named Cream and Grey, and written sizes."><figcaption><b>Choose</b>Named colours and sizes</figcaption></figure>
+          <figure><img src="assets/screens/i3-product-success.jpg" data-zoom loading="lazy" alt="Confirmation that the jumper in Cream, size M, was added to the bag."><figcaption><b>Add</b>Confirmation spoken on the page</figcaption></figure>
+          <figure><img src="assets/screens/i3-cart.jpg" data-zoom loading="lazy" alt="Bag with colour, size and quantity written out, and Place order."><figcaption><b>Bag</b>Review, then place the order</figcaption></figure>
+          <figure><img src="assets/screens/i3-product-hc.jpg" data-zoom loading="lazy" alt="The same product page in dark mode with larger text."><figcaption><b>Dark mode</b>One toggle, the whole page</figcaption></figure>
+        </div>
+        <div class="tabs wide reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Product screens">
+            <button class="tab" role="tab" id="t-browse" aria-controls="p-browse" aria-selected="true">Browse</button>
+            <button class="tab" role="tab" id="t-product" aria-controls="p-product" aria-selected="false" tabindex="-1">Product</button>
+            <button class="tab" role="tab" id="t-error" aria-controls="p-error" aria-selected="false" tabindex="-1">Error prevention</button>
+            <button class="tab" role="tab" id="t-details" aria-controls="p-details" aria-selected="false" tabindex="-1">Details</button>
+            <button class="tab" role="tab" id="t-bag" aria-controls="p-bag" aria-selected="false" tabindex="-1">Bag</button>
+            <button class="tab" role="tab" id="t-keys" aria-controls="p-keys" aria-selected="false" tabindex="-1">Keyboard guide</button>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-browse" aria-labelledby="t-browse" tabindex="0">
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · All clothing</span></div><img src="assets/screens/i3-home.jpg" data-zoom loading="lazy" alt="All clothing page: header with search, four category filters, Increase text size, Dark mode and Keyboard guide toggles, a Bag button, and a product card for the Chunky Knit Jumper with colour names and a View product button."></div>
+            <div><span class="label">Browse</span><h3>A header that does the work</h3><p>Search, four categories and three accessibility toggles sit in one header that is identical on every page.</p><ul><li>Each card announces its name and price</li><li>Arrow keys move between products; Enter opens one</li><li>Colour names written out, not just shown</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-product" aria-labelledby="t-product" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · Chunky Knit Jumper</span></div><img src="assets/screens/i3-product-success.jpg" data-zoom loading="lazy" alt="Product page after adding to the bag, with a success message and a View bag button showing 1 item at £49.99."></div>
+            <div><span class="label">Product</span><h3>Choose, then hear it confirmed</h3><p>The confirmation is written on screen and announced: “Chunky Knit Jumper in Cream, size M, added to your bag. Press B to view your bag.”</p><ul><li>Garment shown on black for residual vision</li><li>View bag shows count and total</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-error" aria-labelledby="t-error" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · Chunky Knit Jumper</span></div><img src="assets/screens/i3-product-added.jpg" data-zoom loading="lazy" alt="Product page where Add to bag was pressed without a size: an inline message reads Please select a size."></div>
+            <div><span class="label">Error prevention</span><h3>Say what is missing</h3><p>Pressing Add to bag without a size shows “Please select a size.” and speaks the fuller instruction: “Please select a size first. Use arrow keys to choose from the size options.”</p><ul><li>Written and spoken, never colour alone</li><li>Nothing is added until it is complete</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-details" aria-labelledby="t-details" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · Chunky Knit Jumper</span></div><img src="assets/screens/i3-product-details.jpg" data-zoom loading="lazy" alt="Product detail rows: About, Material, Fit, Origin, Delivery and Returns, each with a Hear button and an expand arrow."></div>
+            <div><span class="label">Details</span><h3>The feel of it, in words</h3><p>Six labelled rows turn what a shopper would see and touch into text: “50% wool, 50% acrylic. Chunky weight. Soft, warm, and slightly textured.”</p><ul><li>Each row has its own Hear button</li><li>Rows say whether they are open; Enter opens and reads one</li><li>Material adds a described close-up of the knit</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-bag" aria-labelledby="t-bag" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · Your bag</span></div><img src="assets/screens/i3-cart.jpg" data-zoom loading="lazy" alt="Your bag with one item: Chunky Knit Jumper, Cream, Size M, quantity controls, Remove, a total of £49.99 and a full-width Place order button."></div>
+            <div><span class="label">Bag</span><h3>Plain text, one column</h3><p>Colour, size and quantity are written out, so the bag is fully understandable without seeing it. Place order is the single primary action and ends with a spoken thank-you.</p><ul><li>Quantity buttons name the item and the current count</li><li>Every change is spoken, like “quantity increased to 2”</li><li>Remove is labelled, not an icon alone</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-keys" aria-labelledby="t-keys" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">e-commerce · Keyboard guide</span></div><img src="assets/screens/i3-keyboard-guide.jpg" data-zoom loading="lazy" alt="Shop page with the keyboard guide turned on, listing the keyboard shortcuts."></div>
+            <div><span class="label">Keyboard guide</span><h3>Shortcuts, explained in place</h3><p>Turning on the guide shows every key the product uses, from Tab and the arrow keys to H for home and B for the bag. It also speaks each control as it receives focus.</p><ul><li>One Tab stop per group; arrows move within it</li><li>3px lavender focus ring on every control</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="modes" aria-labelledby="modes-h">
+        <div class="section__head reveal">
+          <span class="section__num">06 · Dark mode and large text</span>
+          <h2 id="modes-h">One toggle, the whole interface</h2>
+        </div>
+        <p class="prose reveal">Both settings update a single set of CSS custom properties, so every page changes together. Drag the handle, or focus it and use the arrow keys.</p>
+        <div class="reveal">
+          <div class="compare">
+            <img src="assets/screens/i3-product.jpg" alt="Standard mode: white background, near-black text and lavender accents.">
+            <div class="compare__after"><img src="assets/screens/i3-product-hc.jpg" alt="Dark mode with large text: black background, white text, lighter lavender accents and larger type."></div>
+            <span class="compare__line" aria-hidden="true"></span>
+            <span class="compare__knob" aria-hidden="true">‹ ›</span>
+            <span class="compare__tag compare__tag--before" aria-hidden="true">Standard</span>
+            <span class="compare__tag compare__tag--after" aria-hidden="true">Dark + large text</span>
+            <input type="range" min="0" max="100" value="50" aria-label="Compare standard mode with dark mode and large text">
+          </div>
+          <div class="compare-caption"><span>Standard</span><span>Dark mode + large text</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="system" aria-labelledby="system-h">
+        <div class="section__head reveal">
+          <span class="section__num">07 · Design system</span>
+          <h2 id="system-h">From wireframe to verified contrast</h2>
+        </div>
+        <p class="prose reveal">The product went from a three-screen wireframe to a high-fidelity bag, then into code.</p>
+        <div class="tabs wide reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Design stages">
+            <button class="tab" role="tab" id="t-stage-wire" aria-controls="p-stage-wire" aria-selected="true">1 · Wireframe</button>
+            <button class="tab" role="tab" id="t-stage-proto" aria-controls="p-stage-proto" aria-selected="false" tabindex="-1">2 · Prototype</button>
+            <button class="tab" role="tab" id="t-stage-built" aria-controls="p-stage-built" aria-selected="false" tabindex="-1">3 · Built product</button>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-wire" aria-labelledby="t-stage-wire" tabindex="0">
+            <figure class="stage">
+              <div class="stage__media"><img src="assets/docs/i3-wireframe.png" data-zoom loading="lazy" alt="Grey low-fidelity wireframes linked by arrows: a Tops listing with a speaker icon; a product page for a Red Short Sleeve Shirt with sizes, other colours, Add to bag and speaker icons; a second product view showing a knit fabric close-up; and a bag page with size, quantity, remove and checkout."></div>
+              <figcaption><b>Low fidelity · Figma</b><span>Three screens (listing, product and bag) with Read Aloud on each, a written fabric description, and a second product view that swaps the photo for a fabric close-up. Audio was part of the structure from the start.</span></figcaption>
+            </figure>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-proto" aria-labelledby="t-stage-proto" tabindex="0" hidden>
+            <figure class="stage">
+              <div class="stage__media"><img src="assets/docs/i3-prototype.png" data-zoom loading="lazy" alt="High-fidelity prototype of the bag: a header with search, All, Tops, Dresses and Bottoms, and Increase text size, Increase contrast and Keyboard guide toggles; one grey short sleeve shirt, size S, quantity 1, with a speaker icon, Remove item and a lavender Checkout button."></div>
+              <figcaption><b>High fidelity · Figma</b><span>Only the bag was prototyped. It set the soft lavender palette and the header that appears on every page: search, four categories and three accessibility toggles.</span></figcaption>
+            </figure>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-built" aria-labelledby="t-stage-built" tabindex="0" hidden>
+            <figure class="stage">
+              <div class="stage__media"><img class="stage__shot" src="assets/screens/i3-cart.jpg" data-zoom loading="lazy" alt="The built bag: Chunky Knit Jumper, Cream, size M, quantity controls, Remove, a total of £49.99 and a full-width Place order button."></div>
+              <figcaption><b>Built · React</b><span>The listing and product pages were designed directly in code from the wireframe, using the bag’s visual language. The contrast toggle became Dark mode.</span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <p class="prose reveal">A soft lavender and white palette avoids the loud brand colours of mainstream fashion sites, which add visual noise for people with residual vision. Contrast below is calculated live with the WCAG formula.</p>
+        <div class="swatches reveal">
+          <div class="swatch" data-contrast="#1a1a2e,#ffffff"><div class="swatch__sample" style="color:#1a1a2e;background:#fff">Body text</div><div class="swatch__meta"><span>#1A1A2E on white</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+          <div class="swatch" data-contrast="#6b6b7b,#ffffff"><div class="swatch__sample" style="color:#6b6b7b;background:#fff;font-size:15px;font-weight:500">Helper text · Home › Your bag</div><div class="swatch__meta"><span>#6B6B7B on white</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+          <div class="swatch" data-contrast="#ffffff,#534ab7"><div class="swatch__sample" style="color:#fff;background:#534ab7">Add to bag</div><div class="swatch__meta"><span>White on #534AB7</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+          <div class="swatch" data-contrast="#ffffff,#000000"><div class="swatch__sample" style="color:#fff;background:#000">Dark mode text</div><div class="swatch__meta"><span>White on black</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+          <div class="swatch" data-contrast="#a09aff,#000000"><div class="swatch__sample" style="color:#a09aff;background:#000">Dark mode accent</div><div class="swatch__meta"><span>#A09AFF on black</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+          <div class="swatch" data-contrast="#000000,#a09aff"><div class="swatch__sample" style="color:#000;background:#a09aff">Dark mode · Add to bag</div><div class="swatch__meta"><span>Black on #A09AFF</span><span><span class="ratio"></span> <span class="grade"></span></span></div></div>
+        </div>
+        <div class="wide specs reveal">
+          <div class="spec"><b>System sans</b><span>The platform’s own sans-serif, following Samreen’s advice for screen reader users</span></div>
+          <div class="spec"><b>3px</b><span>Lavender focus ring with a 3px offset, visible on white and on black</span></div>
+          <div class="spec"><b>20px</b><span>Between colour, size and Add to bag, so zones are never pressed together</span></div>
+          <div class="spec"><b>1 Tab stop</b><span>Per toolbar or radio group; the arrow keys move within it</span></div>
+        </div>
+        <figure class="wide reveal">
+          <img class="shot" src="assets/docs/i3-uml.png" data-zoom loading="lazy" alt="UML class diagram for Interface 3 with I3Provider at the root, I3Layout, page classes, hooks and data models.">
+          <figcaption>Architecture: <code>I3Provider</code> shares accessibility and bag state; <code>useRovingTabIndex</code>, <code>useFocusAnnouncer</code> and <code>useReadAloud</code> handle arrow-key movement, spoken focus and Read Aloud.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section" id="evaluation" aria-labelledby="evaluation-h">
+        <div class="section__head reveal">
+          <span class="section__num">08 · Evaluation</span>
+          <h2 id="evaluation-h">Checked against the standard, not yet with its users</h2>
+        </div>
+        <div class="status reveal" role="note">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <p><strong>Not yet tested with screen reader users.</strong> This is the most important gap in the project: research shows that some barriers only appear when people who use NVDA, JAWS or VoiceOver every day try the product. The checks below are a WCAG 2.1 audit and a heuristic review.</p>
+        </div>
+        <div class="tabs wide reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Evaluation method">
+            <button class="tab" role="tab" id="t-wcag" aria-controls="p-wcag" aria-selected="true">WCAG 2.1 check</button>
+            <button class="tab" role="tab" id="t-nielsen" aria-controls="p-nielsen" aria-selected="false" tabindex="-1">Nielsen’s heuristics</button>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-wcag" aria-labelledby="t-wcag" tabindex="0">
+            <div>
+              <div class="table-wrap">
+                <table>
+                  <caption class="sr-only">WCAG 2.1 checks for Interface 3</caption>
+                  <thead><tr><th scope="col">Criterion</th><th scope="col">What the product does</th><th scope="col">Result</th></tr></thead>
+                  <tbody>
+                    <tr data-result="pass"><td>1.1.1 Non-text content · A</td><td>Photos on the listing, the product page, in the bag and in the Material row have alt text naming the item and colour</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>1.4.1 Use of colour · A</td><td>Colour options have text labels, errors have words, and success is announced</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>1.4.3 Contrast · AA</td><td>Every text pair measured on every screen: at least 4.9:1 in standard mode (body text 17.1:1, buttons 6.9:1) and at least 7.6:1 in dark mode, which also meets AAA</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>2.1.1 Keyboard · A</td><td>Browsing, choosing, the bag and placing an order all work without a pointer</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>2.4.1 Bypass blocks · A</td><td>Skip to main content is the first focusable element on every page</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>2.4.3 Focus order · A</td><td>Name → price → colour → size → Add to bag</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>2.4.7 Focus visible · AA</td><td>A 3px lavender ring on every control: 3.8:1 against white, 5.6:1 against black</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>4.1.2 Name, role, value · A</td><td>Colour and size are radio groups; each option has a name and a checked state</td><td><span class="pill pill--pass">Met</span></td></tr>
+                    <tr data-result="pass"><td>4.1.3 Status messages · AA</td><td>Add to bag is confirmed in an assertive live region; quantity changes and the order confirmation are polite. Focus never moves</td><td><span class="pill pill--pass">Met</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-nielsen" aria-labelledby="t-nielsen" tabindex="0" hidden>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Heuristic evaluation for Interface 3</caption>
+                <thead><tr><th scope="col">Heuristic</th><th scope="col">Finding</th><th scope="col">Rating</th></tr></thead>
+                <tbody>
+                  <tr><td>H1 Visibility of status</td><td>Add to bag is confirmed on screen and in a live region; the order confirmation uses a status role</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H2 Match with the real world</td><td>Plain-language colour names such as Cream and Grey, never catalogue codes</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H3 User control</td><td>Colour and size can be changed at any time; bag items can be removed or re-counted</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H4 Consistency</td><td>Header, breadcrumb, content, actions: the same order on every page</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H5 Error prevention</td><td>Add to bag is blocked until a size is chosen, with a spoken explanation</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H6 Recognition over recall</td><td>Details sit in labelled rows; the keyboard guide keeps every shortcut on screen</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H7 Flexibility</td><td>H for home and B for the bag; category filters shorten sequential browsing</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H8 Minimalist design</td><td>Four categories; cards show only name, price and colours</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H9 Recognise and recover from errors</td><td>“Please select a size.” on screen, with the fuller instruction spoken</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                  <tr><td>H10 Help</td><td>A keyboard guide bar, and a Hear button on every product detail row</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="reflection" aria-labelledby="reflection-h">
+        <div class="section__head reveal">
+          <span class="section__num">09 · Reflection</span>
+          <h2 id="reflection-h">What I would do next</h2>
+        </div>
+        <div class="decisions reveal">
+          <article class="decision"><h3>Test with screen reader users</h3><p>Run sessions with people who use NVDA, JAWS and VoiceOver daily, across browsers, to confirm every announcement is clear.</p></article>
+          <article class="decision"><h3>Connect the full checkout</h3><p>Place order currently goes straight to a spoken thank-you. A labelled delivery and payment form is already built; connecting it completes the journey.</p></article>
+          <article class="decision"><h3>Grow the catalogue</h3><p>The prototype has one fully described product. More items would test filtering, search and browsing at realistic scale.</p></article>
+          <article class="decision"><h3>Prototype every screen</h3><p>Only the bag had a high-fidelity prototype. Designing the listing and product pages first would have allowed earlier review.</p></article>
+          <article class="decision"><h3>Bring in AI, carefully</h3><p>Recommendations by fabric, fit, warmth and occasion, and spoken search, were planned but descoped for time. They would follow Amershi et al.: transparent and easy to override.</p></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a class="next" href="learning-platform.html">
+    <div class="next__card">
+      <div><small>Back to case study · 01</small><strong>A learning space that stays calm</strong><span>A low-stimulation learning platform for children, including autistic children.</span></div>
+      <img src="assets/screens/i1-home-read.jpg" alt="" aria-hidden="true">
+    </div>
+  </a>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span>Sarah Menla · BSc (Hons) Computer Science final-year project, Royal Holloway, University of London</span>
+      <span><a href="index.html">All case studies</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js?v=see"></script>
+<script>(function () { try { var k = 'hciReturn', r = document.referrer, s = window.sessionStorage; if (r && r.indexOf('/hci-case-studies/') < 0 && new URL(r).origin === location.origin) s.setItem(k, r); var b = document.querySelector('.back-link'), v = s.getItem(k); if (b && v) b.setAttribute('href', v); } catch (e) {} })();</script>
+</body>
+</html>

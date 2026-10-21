@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A calm place to learn: Case study 01 · Sarah Menla</title>
+  <meta name="description" content="Case study: a low-stimulation, gamified learning platform for children aged 5–9, including autistic children. Research, design decisions, product and evaluation.">
+  <link rel="stylesheet" href="assets/css/site.css?v=see">
+</head>
+<body data-study="learning">
+  <a class="skip-link" href="#main">Skip to case study</a>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__left"><a class="back-link" href="../index.html" aria-label="Back to portfolio"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"></path></svg><span class="back-link__text">Portfolio</span></a><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">S</span><span>Sarah Menla<small>HCI case studies</small></span></a></div>
+      <nav aria-label="Case studies">
+        <ul>
+          <li><a href="learning-platform.html" aria-current="page">01 <span class="long">Education</span></a></li>
+          <li><a href="dentacare.html">02 <span class="long">DentaCare</span></a></li>
+          <li><a href="accessible-fashion.html">03 <span class="long">E-commerce</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
+
+  <section class="hero" aria-labelledby="title">
+    <div class="hero__inner hero__grid">
+      <div>
+        <p class="eyebrow">Case study 01 · Education</p>
+        <h1 class="display" id="title">A learning space that stays <em>calm</em></h1>
+        <p class="lede">Reading, drawing, maths and video for children aged 5–9, including autistic children. Nothing moves, opens or changes unless the child asks it to.</p>
+        <ul class="hero__pills">
+          <li>Ages 5–9 · ASD Level 1</li>
+          <li>React · Vite</li>
+          <li>3 adult proxies</li>
+        </ul>
+      </div>
+      <div class="hero__stage">
+        <div class="browser">
+          <div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Books</span></div>
+          <img src="assets/screens/i1-home-read.jpg" width="2880" height="1800" alt="The Read section: four large book covers in a horizontal carousel, one outlined by a green selection ring, with five round navigation buttons along the bottom and a Calm Mode button top right.">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page">
+    <nav class="toc" aria-label="On this page">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#challenge">Challenge</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#decisions">Design decisions</a></li>
+        <li><a href="#try">Try it</a></li>
+        <li><a href="#product">The product</a></li>
+        <li><a href="#calm">Calm Mode</a></li>
+        <li><a href="#system">Design system</a></li>
+        <li><a href="#build">Architecture</a></li>
+        <li><a href="#testing">Testing</a></li>
+        <li><a href="#reflection">Reflection</a></li>
+      </ol>
+    </nav>
+
+    <main id="main">
+      <section class="section" id="challenge" aria-labelledby="challenge-h">
+        <div class="section__head reveal">
+          <span class="section__num">01 · The challenge</span>
+          <h2 id="challenge-h">Most learning apps are built to excite. For some children, that is the problem.</h2>
+        </div>
+        <div class="challenge reveal">
+          <div>
+            <p class="big">Bright colours, dense screens and motion that plays by itself can turn a lesson into something a child has to manage rather than enjoy.</p>
+            <div class="pains">
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 14c2-4 4-4 6 0s4 4 6 0 4-4 4 0"/><path d="M4 8c2-3 4-3 6 0s4 3 6 0 4-3 4 0"/></svg><div><b>Motion with no purpose</b><span>Animation that is not part of the task still raises failure.</span></div></div>
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><div><b>Built to excite</b><span>Most learning apps use visual intensity to hold attention.</span></div></div>
+              <div class="pain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7h8M8 12h8M8 17h5"/><circle cx="5" cy="7" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="5" cy="17" r="1"/></svg><div><b>Nothing is optional</b><span>The child needed every stimulus to be something they could turn off.</span></div></div>
+            </div>
+            <p class="source">Alzahrani et al. on incidental animation. Scope and the UK Government Digital Service on predictable layouts, plain language and minimal motion.</p>
+          </div>
+          <div class="browser">
+            <div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Home</span></div>
+            <img src="assets/screens/i1-home.jpg" width="2880" height="1800" alt="The calm home screen: avatar, progress bar, My rewards, Calm Mode, and five large round activity buttons.">
+          </div>
+        </div>
+        <div class="stats reveal" role="list">
+          <div class="stat" role="listitem"><b>5</b><span>choices on the home screen: Play, Draw, Read, Watch, Numbers</span></div>
+          <div class="stat" role="listitem"><b>142px</b><span>round navigation targets, sized for small hands and touchscreens</span></div>
+          <div class="stat" role="listitem"><b>90s</b><span>without a page turn before a break is gently offered</span></div>
+          <div class="stat" role="listitem"><b>0</b><span>countdown timers in any maths or drawing activity</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="research" aria-labelledby="research-h">
+        <div class="section__head reveal">
+          <span class="section__num">02 · Research</span>
+          <h2 id="research-h">Designing for Noah</h2>
+        </div>
+        <div class="persona reveal">
+          <figure class="persona__sheet">
+            <img src="assets/docs/persona-noah.jpg" data-zoom loading="lazy" alt="Persona card for Noah, age 7, ASD Level 1, primary school student. Quote: I like learning in fun ways. Pain points: bright or moving visuals cause sensory overload; confused by unclear buttons or sudden changes; loses focus without clear feedback or progress signs.">
+            <figcaption>Persona built from the literature, competitor analysis and an early survey.</figcaption>
+          </figure>
+          <div class="persona__lead">
+            <p class="quote">I like learning in fun ways.</p>
+            <div>
+              <ul class="chips" aria-label="About Noah">
+                <li>Age 7</li>
+                <li>ASD Level 1</li>
+                <li>Primary school</li>
+              </ul>
+              <p>Picture books, short activities and videos. Bright motion, unclear buttons and sudden changes get in the way.</p>
+            </div>
+          </div>
+          <ol class="needs">
+            <li data-n="1">Keep cognitive load low and the screen uncluttered.</li>
+            <li data-n="2">Make navigation predictable and identical on every screen.</li>
+            <li data-n="3">Prevent accidental actions before they happen.</li>
+            <li data-n="4">Motivate with feedback and long-term goals, without visual noise.</li>
+          </ol>
+        </div>
+        <div class="voices reveal">
+          <div>
+            <p class="voices__label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>What gets in the way</p>
+            <ul>
+              <li>Bright or moving visuals overwhelm him</li>
+              <li>Unclear buttons and sudden changes confuse him</li>
+              <li>He loses focus without signs of progress</li>
+            </ul>
+          </div>
+          <div>
+            <p class="voices__label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>What the interface must do</p>
+            <ul>
+              <li>Keep the screen uncluttered</li>
+              <li>Same navigation on every page</li>
+              <li>Nothing opens by accident</li>
+              <li>Progress without visual noise</li>
+            </ul>
+          </div>
+        </div>
+        <div class="split wide reveal">
+          <div class="card card--tint">
+            <span class="label">Children’s survey</span>
+            <p>A short survey explored colour preferences, tolerance to sound, feedback style and reading habits. Safeguarding and ethics constraints limited it to <strong>four responses, two from autistic children</strong>, so it guided early direction only.</p>
+          </div>
+          <div class="card">
+            <span class="label">Evidence base</span>
+            <p>Decisions were grounded in HCI theory, autism-friendly guidance from Scope and GDS, research on sensory load and gamification, and a competitor analysis of children’s learning products.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="decisions" aria-labelledby="decisions-h" data-theory>
+        <div class="section__head reveal">
+          <span class="section__num">03 · Design decisions</span>
+          <h2 id="decisions-h">Every choice traces back to a principle</h2>
+        </div>
+        <p class="prose reveal">Filter by principle to see which parts of the interface it shaped.</p>
+        <div class="filters reveal" role="group" aria-label="Filter decisions by principle">
+          <button class="filter" type="button" data-key="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-key="load">Cognitive load</button>
+          <button class="filter" type="button" data-key="hick">Hick’s Law</button>
+          <button class="filter" type="button" data-key="fitts">Fitts’s Law</button>
+          <button class="filter" type="button" data-key="nielsen">Nielsen heuristics</button>
+          <button class="filter" type="button" data-key="gestalt">Gestalt</button>
+          <button class="filter" type="button" data-key="autism">Autism guidance</button>
+          <button class="filter" type="button" data-key="wcag">WCAG 2.1</button>
+        </div>
+        <p class="filter-status" role="status"></p>
+        <div class="decisions">
+          <article class="decision" data-tags="hick load gestalt"><h3>Five choices, no more</h3><p>The home screen offers five labelled circles in one cluster. Fewer options means faster, calmer decisions.</p><div class="tags"><span>Hick</span><span>Load</span><span>Gestalt</span></div></article>
+          <article class="decision" data-tags="fitts"><h3>Targets for small hands</h3><p>142px navigation circles and 260px book cards reduce mis-taps for children with less precise motor control.</p><div class="tags"><span>Fitts</span></div></article>
+          <article class="decision" data-tags="nielsen"><h3>Selecting never opens</h3><p>Arrow keys move a selection ring. A book opens only on an explicit press of Open, Enter or Space.</p><div class="tags"><span>H5 Error prevention</span></div></article>
+          <article class="decision" data-tags="nielsen"><h3>Confirm before leaving</h3><p>Leaving the reader or progress page asks first, shown by the child’s own character, so a place is never lost by mistake.</p><div class="tags"><span>H3 User control</span></div></article>
+          <article class="decision" data-tags="autism load"><h3>Calm Mode, one tap away</h3><p>Lives in the top bar, not a settings menu. Mutes the background, hides the progress bar and suppresses motion.</p><div class="tags"><span>Autism</span><span>Load</span></div></article>
+          <article class="decision" data-tags="autism wcag"><h3>A two-colour palette</h3><p>Soft sage on warm off-white. Green marks only selection and progress, so colour always means something. Text targets 7:1.</p><div class="tags"><span>Autism</span><span>WCAG 1.4.1</span></div></article>
+          <article class="decision" data-tags="nielsen autism"><h3>Icon and word together</h3><p>Every navigation button pairs a familiar symbol with a plain label, for children who read less or interpret images literally.</p><div class="tags"><span>H6 Recognition</span><span>Autism</span></div></article>
+          <article class="decision" data-tags="load nielsen"><h3>Rewards stay out of the way</h3><p>Points, shop and goals live on the Progress page. A labelled <strong>My rewards</strong> button, the same size as Calm Mode, opens it. Testers missed an unlabelled chest; the label is there so the page is found by recognition.</p><div class="tags"><span>Load</span><span>H6 Recognition</span></div></article>
+          <article class="decision" data-tags="autism"><h3>No time pressure</h3><p>All four maths games and every drawing activity are untimed, because countdowns raise anxiety and lower accuracy.</p><div class="tags"><span>Autism</span></div></article>
+          <article class="decision" data-tags="autism load"><h3>Breaks, offered kindly</h3><p>After 90 seconds without a page turn, the reader offers a five-minute break. Affirmations appear every 45 seconds.</p><div class="tags"><span>Wellbeing</span><span>Load</span></div></article>
+          <article class="decision" data-tags="nielsen gestalt"><h3>A top bar that never moves</h3><p>Avatar, progress, My rewards and Calm Mode sit in the same place on every screen, so there is nothing to relearn.</p><div class="tags"><span>H4 Consistency</span><span>Gestalt</span></div></article>
+          <article class="decision" data-tags="wcag"><h3>Keyboard first</h3><p>The carousel works with arrow keys and on-screen arrows, with a clear focus state on every control.</p><div class="tags"><span>WCAG 2.1.1</span><span>2.4.7</span></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="try" aria-labelledby="try-h">
+        <div class="section__head reveal">
+          <span class="section__num">04 · Try it</span>
+          <h2 id="try-h">Browse freely. Nothing opens by accident.</h2>
+        </div>
+        <p class="prose reveal">This is the interaction pattern at the heart of the reader. Move the ring with the arrows or your keyboard; only <strong>Open</strong> starts a book. Then switch on Calm Mode.</p>
+        <div class="demo cdemo reveal" id="carousel-demo">
+          <div class="demo__head"><strong>Books carousel</strong><span>Keyboard: <span class="kbd">←</span> <span class="kbd">→</span> to select, <span class="kbd">Enter</span> to open</span></div>
+          <div class="demo__body">
+            <div class="cdemo__row">
+              <button class="cdemo__arrow" type="button" data-prev aria-label="Select previous book">◀</button>
+              <div class="cdemo__track" role="listbox" aria-label="Books" aria-orientation="horizontal">
+                <button class="cdemo__card" type="button" role="option" data-title="The Little Tailor"><img src="assets/demo/the-little-tailor.jpg" alt="The Little Tailor"></button>
+                <button class="cdemo__card" type="button" role="option" data-title="Don’t Come Closer"><img src="assets/demo/dont-come-closer.jpg" alt="Don’t Come Closer"></button>
+                <button class="cdemo__card" type="button" role="option" data-title="Cat and Dog Learn Every Day"><img src="assets/demo/cat-and-dog-learn-every-day.jpg" alt="Cat and Dog Learn Every Day"></button>
+                <button class="cdemo__card" type="button" role="option" data-title="The Shy Moon"><img src="assets/demo/the-shy-moon.jpg" alt="The Shy Moon"></button>
+              </div>
+              <button class="cdemo__arrow" type="button" data-next aria-label="Select next book">▶</button>
+            </div>
+            <div class="cdemo__bar">
+              <button class="btn" type="button" data-open>Open book</button>
+              <button class="btn btn--ghost" type="button" data-calm aria-pressed="false">Calm Mode off</button>
+            </div>
+            <p class="cdemo__log" aria-hidden="true">Move the ring around. The count of accidental openings stays at zero.</p>
+            <p class="cdemo__live sr-only" role="status" aria-live="polite"></p>
+          </div>
+          <p class="demo__hint">In the product, <code>HorizontalCards</code> owns the selection state and the parent page owns opening, so the two cannot be triggered by the same action.</p>
+        </div>
+      </section>
+
+      <section class="section" id="product" aria-labelledby="product-h">
+        <div class="section__head reveal">
+          <span class="section__num">05 · The product</span>
+          <h2 id="product-h">A complete platform, not a single screen</h2>
+        </div>
+        <div class="reel reveal" tabindex="0" aria-label="Screens from the learning platform. Scroll sideways.">
+          <figure><img src="assets/screens/i1-home.jpg" data-zoom loading="lazy" alt="Home: five large round buttons for Play, Draw, Read, Watch and Numbers."><figcaption><b>Home</b>Five labelled activities, one cluster</figcaption></figure>
+          <figure><img src="assets/screens/i1-home-read.jpg" data-zoom loading="lazy" alt="Read section: book covers in a carousel with a selection ring and an Open control."><figcaption><b>Read</b>Select, then Open — never both at once</figcaption></figure>
+          <figure><img src="assets/screens/i1-reader.jpg" data-zoom loading="lazy" alt="Two-page book reader with large previous and next arrows."><figcaption><b>Reader</b>A book that turns like a book</figcaption></figure>
+          <figure><img src="assets/screens/i1-counting.jpg" data-zoom loading="lazy" alt="Count and Tap maths game with large answers and no timer."><figcaption><b>Maths</b>Four games, no clock</figcaption></figure>
+          <figure><img src="assets/screens/i1-shop.jpg" data-zoom loading="lazy" alt="Rewards shop of characters the child can buy with points."><figcaption><b>Rewards</b>Points the child owns</figcaption></figure>
+          <figure><img src="assets/screens/i1-home-calm.jpg" data-zoom loading="lazy" alt="The same home screen in Calm Mode, with a muted background."><figcaption><b>Calm Mode</b>One tap, always in the same place</figcaption></figure>
+        </div>
+        <div class="tabs reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Product screens">
+            <button class="tab" role="tab" id="t-home" aria-controls="p-home" aria-selected="true">Home</button>
+            <button class="tab" role="tab" id="t-read" aria-controls="p-read" aria-selected="false" tabindex="-1">Reader</button>
+            <button class="tab" role="tab" id="t-shop" aria-controls="p-shop" aria-selected="false" tabindex="-1">Rewards</button>
+            <button class="tab" role="tab" id="t-goals" aria-controls="p-goals" aria-selected="false" tabindex="-1">Goals</button>
+            <button class="tab" role="tab" id="t-play" aria-controls="p-play" aria-selected="false" tabindex="-1">Maths</button>
+            <button class="tab" role="tab" id="t-draw" aria-controls="p-draw" aria-selected="false" tabindex="-1">Drawing</button>
+            <button class="tab" role="tab" id="t-signup" aria-controls="p-signup" aria-selected="false" tabindex="-1">Sign-up</button>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="p-home" aria-labelledby="t-home" tabindex="0">
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Home</span></div><img src="assets/screens/i1-home.jpg" data-zoom loading="lazy" alt="Home screen with the child’s avatar top left, a progress bar, a labelled My rewards button, the Calm Mode button, and five large round navigation buttons for Play, Draw, Read, Watch and Numbers, with only the selected one, Play, showing its label."></div>
+            <div><span class="label">Home and navigation</span><h3>One cluster, five doors</h3><p>A single circular cluster holds every section. The same buttons shrink to a bottom bar inside each section, so the way back is always visible.</p><ul><li>Icon plus label on every button</li><li>Top bar fixed across all screens</li><li>My rewards opens progress and the shop</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-read" aria-labelledby="t-read" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · The Little Tailor</span></div><img src="assets/screens/i1-reader.jpg" data-zoom loading="lazy" alt="Book reader showing a two-page spread of The Little Tailor, large previous and next arrows at the sides, a Back button top left and a page counter reading Spread 1 of 19."></div>
+            <div><span class="label">Reader</span><h3>A book that turns like a book</h3><p>A two-page flipbook built on PDF.js. Finishing the last spread awards 10 points automatically, and Back always asks before leaving.</p><ul><li>Idle detection offers a 5-minute break</li><li>Character affirmations every 45 seconds</li><li>Large, fixed arrows for page turns</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-shop" aria-labelledby="t-shop" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Progress · Shop</span></div><img src="assets/screens/i1-shop.jpg" data-zoom loading="lazy" alt="Progress page for Noah with 145 points, an adventure progress bar, the ways points are earned, and a shop grid of characters with Equip and Buy buttons."></div>
+            <div><span class="label">Rewards</span><h3>Motivation the child owns</h3><p>Points arrive automatically: 10 for a book, 5 for a video, 2 for a new day. They unlock twelve characters, twelve accessories and six backgrounds.</p><ul><li>Equipped items appear everywhere the avatar does</li><li>A points log keeps rewards transparent</li><li>Never shown during an activity</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-goals" aria-labelledby="t-goals" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Progress · Goals</span></div><img src="assets/screens/i1-goals.jpg" data-zoom loading="lazy" alt="Goals tab on the Progress page listing milestones the child can claim bonus points for."></div>
+            <div><span class="label">Goals and parent area</span><h3>Carers set the milestones</h3><p>A PIN-protected parent area shows books read, videos watched and days active. Parents set goals such as “Read 3 books”, and the child claims the bonus.</p><ul><li>PIN set by the parent at sign-up</li><li>Children cannot edit their own balance</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-play" aria-labelledby="t-play" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Count &amp; Tap</span></div><img src="assets/screens/i1-counting.jpg" data-zoom loading="lazy" alt="Count and Tap maths game with large tappable answer options on the calm cream background."></div>
+            <div><span class="label">Maths</span><h3>Four games, no clock</h3><p>Count &amp; Tap, Number Bonds, Shape Match and Times Tables, each with several difficulty levels and no time pressure at all.</p><ul><li>Instant, gentle feedback on each answer</li><li>Points on completion</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-draw" aria-labelledby="t-draw" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Word trace</span></div><img src="assets/screens/i1-word-trace.jpg" data-zoom loading="lazy" alt="Word tracing activity with a word to trace and simple drawing tools."></div>
+            <div><span class="label">Drawing</span><h3>Trace, colour, learn</h3><p>Word tracing and colouring diagrams that teach as they go: plant parts, the water cycle and the solar system.</p><ul><li>Large canvas, few tools</li><li>Untimed and forgiving</li></ul></div>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="p-signup" aria-labelledby="t-signup" tabindex="0" hidden>
+            <div class="browser"><div class="browser__bar"><span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser__url">learn · Set your parent PIN</span></div><img src="assets/screens/i1-parent-pin.jpg" data-zoom loading="lazy" alt="Sign-up step titled Set your parent PIN, with four PIN boxes and a large number pad."></div>
+            <div><span class="label">First run</span><h3>Set up together</h3><p>A parent creates the account and sets a four-digit PIN. The child then chooses one of twelve characters, which follows them through the whole platform.</p><ul><li>Large number pad for the PIN</li><li>Plain-language validation messages</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="calm" aria-labelledby="calm-h">
+        <div class="section__head reveal">
+          <span class="section__num">06 · Calm Mode</span>
+          <h2 id="calm-h">The same screen, turned down</h2>
+        </div>
+        <p class="prose reveal">Drag the handle, or focus it and use the arrow keys. Calm Mode swaps the background to muted cream, hides the progress bar and suppresses motion, and the choice is saved to the child’s profile.</p>
+        <div class="reveal">
+          <div class="compare">
+            <img src="assets/screens/i1-home-read.jpg" alt="Standard mode: warm off-white background with the green progress bar visible.">
+            <div class="compare__after"><img src="assets/screens/i1-home-calm.jpg" alt="Calm Mode: muted cream background, progress bar hidden, a small Calm Mode is on label."></div>
+            <span class="compare__line" aria-hidden="true"></span>
+            <span class="compare__knob" aria-hidden="true">‹ ›</span>
+            <span class="compare__tag compare__tag--before" aria-hidden="true">Standard</span>
+            <span class="compare__tag compare__tag--after" aria-hidden="true">Calm Mode</span>
+            <input type="range" min="0" max="100" value="50" aria-label="Compare standard mode with Calm Mode">
+          </div>
+          <div class="compare-caption"><span>Standard</span><span>Calm Mode</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="system" aria-labelledby="system-h">
+        <div class="section__head reveal">
+          <span class="section__num">07 · Design system</span>
+          <h2 id="system-h">From Figma flow to finished product</h2>
+        </div>
+        <p class="prose reveal">The design moved in three steps: structure first, then the visual design in Figma, then the React build.</p>
+        <div class="tabs wide reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Design stages">
+            <button class="tab" role="tab" id="t-stage-wire" aria-controls="p-stage-wire" aria-selected="true">1 · Wireframe</button>
+            <button class="tab" role="tab" id="t-stage-proto" aria-controls="p-stage-proto" aria-selected="false" tabindex="-1">2 · Prototype</button>
+            <button class="tab" role="tab" id="t-stage-built" aria-controls="p-stage-built" aria-selected="false" tabindex="-1">3 · Built product</button>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-wire" aria-labelledby="t-stage-wire" tabindex="0">
+            <figure class="stage">
+              <div class="stage__media"><img src="assets/docs/i1-wireframe.png" data-zoom loading="lazy" alt="Grey low-fidelity wireframes linked by arrows: a start screen, character selection, home with the book carousel and round navigation buttons, the two-page reader, a break prompt and a 4:59 countdown, a started and completed view, and a list of possible settings."></div>
+              <figcaption><b>Low fidelity · Figma</b><span>Fixed the core flow (login → character → home → carousel → reader) and the places of the top bar, round navigation and carousel before any styling, so layout could be checked separately from visuals.</span></figcaption>
+            </figure>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-proto" aria-labelledby="t-stage-proto" tabindex="0" hidden>
+            <figure class="stage">
+              <div class="stage__media"><img src="assets/docs/i1-prototype.png" data-zoom loading="lazy" alt="High-fidelity Figma prototype flow: character selection, home, carousel, Calm Mode variant, reader with break prompt and countdown, and a Well done reward screen."></div>
+              <figcaption><b>High fidelity · Figma</b><span>Turned the flow into the full app: sign-up, character choice, home, the reading carousel, the reader with breaks, all five activities, progress with the shop and goals, and the PIN-protected parent area.</span></figcaption>
+            </figure>
+          </div>
+          <div class="tabpanel tabpanel--full" role="tabpanel" id="p-stage-built" aria-labelledby="t-stage-built" tabindex="0" hidden>
+            <figure class="stage">
+              <div class="stage__media stage__media--flow">
+                <ol class="stage__flow">
+                  <li><span>Sign in</span><img src="assets/screens/i1-login.jpg" data-zoom loading="lazy" alt="Sign-in screen: Welcome back, username and password fields, a green Sign In button and a Sign Up link."></li>
+                  <li><span>Character</span><img src="assets/screens/i1-character.jpg" data-zoom loading="lazy" alt="Choose Your Character: twelve round characters, each with a name and colour, such as Sunny, Bluebell and Tangy."></li>
+                  <li><span>Home</span><img src="assets/screens/i1-home-read.jpg" data-zoom loading="lazy" alt="The Read section: four large book covers in a horizontal carousel, one outlined by a green selection ring, with five round navigation buttons along the bottom and a Calm Mode button top right."></li>
+                  <li><span>Reader</span><img src="assets/screens/i1-reader.jpg" data-zoom loading="lazy" alt="Book reader showing a two-page spread of The Little Tailor, large previous and next arrows at the sides, a Back button top left and a page counter reading Spread 1 of 19."></li>
+                </ol>
+              </div>
+              <figcaption><b>Built · React</b><span>The coded platform follows the wireframe’s route step for step: sign in, choose a character, pick a book from the carousel, then read.</span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="wide reveal">
+          <span class="label">Palette</span>
+          <div class="palette">
+            <div><i style="background:#fbf7e6"></i><span><b>Warm paper</b>#FBF7E6 · background</span></div>
+            <div><i style="background:#e7f0cf"></i><span><b>Meadow</b>#E7F0CF · surfaces</span></div>
+            <div><i style="background:#cfe4b3"></i><span><b>Sage</b>#CFE4B3 · selection, progress</span></div>
+            <div><i style="background:#ece6cf"></i><span><b>Calm cream</b>#ECE6CF · Calm Mode</span></div>
+            <div><i style="background:#3a3a3a"></i><span><b>Soft ink</b>#3A3A3A · text</span></div>
+          </div>
+        </div>
+        <div class="wide specs reveal">
+          <div class="spec"><b>16px+</b><span>System sans-serif body; 26–28px headings; 22px icon labels</span></div>
+          <div class="spec"><b>2</b><span>Font weights only (400 and 700) for a simple hierarchy</span></div>
+          <div class="spec"><b>36px</b><span>Between navigation circles; 22px between carousel cards</span></div>
+          <div class="spec"><b>142 / 74</b><span>Navigation circle size in pixels, centre and bottom-bar layouts</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="build" aria-labelledby="build-h">
+        <div class="section__head reveal">
+          <span class="section__num">08 · Architecture</span>
+          <h2 id="build-h">Error prevention, enforced in the code</h2>
+        </div>
+        <div class="split reveal">
+          <div class="prose">
+            <p>The app is a React single-page application with pages routed by React Router and reusable components shared across sections: <code>TopBar</code>, <code>HomeNav</code>, <code>HorizontalCards</code>, <code>BackConfirmSheet</code>, <code>ReadingWatcher</code> and <code>PdfFlipBook</code>.</p>
+            <p>Selection state (<code>activeId</code>) lives in the carousel, while opening is a separate <code>onSelect</code> callback owned by the page. The error-prevention rule is structural, not just visual.</p>
+            <p>Profiles, points, unlocked items and goals persist in <code>localStorage</code>, so the app works without a server.</p>
+          </div>
+          <figure>
+            <img class="shot" src="assets/docs/i1-uml.png" data-zoom loading="lazy" alt="UML class diagram for Interface 1 showing App routing to pages, shared components and the data and utility modules.">
+            <figcaption>UML class diagram: pages, shared components, data and utilities.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="testing" aria-labelledby="testing-h">
+        <div class="section__head reveal">
+          <span class="section__num">09 · Testing</span>
+          <h2 id="testing-h">What three users showed me</h2>
+        </div>
+        <div class="status reveal" role="note">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <p><strong>The task test was with three adult proxies.</strong> A short survey of four children, two of them autistic, guided the early design, but it was too small to treat as a usability test. Formal sessions with children were not possible in the time available: safeguarding, ethics approval and school access could not be put in place. Proxy testing can find a control that does not look clickable. It cannot show how children would actually use the platform.</p>
+        </div>
+        <div class="split wide reveal">
+          <div class="card">
+            <span class="label">Task completion without help</span>
+            <ul class="bars">
+              <li><div class="row"><b>Reach a learning activity</b><span>3 of 3</span></div><div class="track"><div class="fill" style="--w:100%"></div></div></li>
+              <li><div class="row"><b>Complete it and read the feedback</b><span>3 of 3</span></div><div class="track"><div class="fill" style="--w:100%"></div></div></li>
+              <li><div class="row"><b>Find the progress dashboard</b><span>1 of 3</span></div><div class="track"><div class="fill is-warn" style="--w:33.3%"></div></div></li>
+              <li><div class="row"><b>Use the dashboard</b><span>3 of 3</span></div><div class="track"><div class="fill" style="--w:100%"></div></div></li>
+            </ul>
+          </div>
+          <div class="card card--tint">
+            <span class="label">The key finding</span>
+            <p>The core flow worked. The treasure chest did not: two of three participants did not realise it was a button. It lacked affordance, breaking <strong>H1</strong> and <strong>H6</strong>. The dashboard also used smaller, denser buttons than everywhere else, which undermines the predictability the design depends on.</p>
+          </div>
+        </div>
+        <div class="quotes wide reveal">
+          <blockquote>I found it easy to choose a game and get started.<cite>Participant 1</cite></blockquote>
+          <blockquote>I liked the instant feedback after answering.<cite>Participant 1</cite></blockquote>
+          <blockquote>I didn’t realise the treasure icon could be clicked.<cite>Participant 1</cite></blockquote>
+          <blockquote>The buttons are smaller and harder to use.<cite>Participant 3</cite></blockquote>
+        </div>
+        <div class="wide reveal" data-heuristics>
+          <div class="filters" role="group" aria-label="Filter heuristic results">
+            <button class="filter" type="button" data-key="all" aria-pressed="true">All</button>
+            <button class="filter" type="button" data-key="pass">Passed</button>
+            <button class="filter" type="button" data-key="issue">Issues</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">Heuristic evaluation summary for Interface 1</caption>
+              <thead><tr><th scope="col">Heuristic</th><th scope="col">Finding</th><th scope="col">Severity</th></tr></thead>
+              <tbody>
+                <tr data-result="issue"><td>H1 Visibility of status</td><td>Treasure chest affordance unclear</td><td><span class="pill pill--high">High</span></td></tr>
+                <tr data-result="pass"><td>H3 User control</td><td>Confirmation prompt on exit works well</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="issue"><td>H4 Consistency</td><td>Dashboard button sizes inconsistent with the rest</td><td><span class="pill pill--medium">Medium</span></td></tr>
+                <tr data-result="pass"><td>H5 Error prevention</td><td>Separating selection from activation is effective</td><td><span class="pill pill--pass">Pass</span></td></tr>
+                <tr data-result="issue"><td>H6 Recognition over recall</td><td>Treasure chest relies on recall, not recognition</td><td><span class="pill pill--high">High</span></td></tr>
+                <tr data-result="pass"><td>H8 Minimalist design</td><td>Calm Mode palette reduces stimulation</td><td><span class="pill pill--pass">Pass</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="wide reveal">
+          <h3>What I changed after testing</h3>
+          <p class="prose" style="margin-bottom:18px">The two issues testers found are now fixed in the product. The evaluation above is what they saw. The screens below are what the product does now.</p>
+          <figure class="compare-block">
+            <div class="compare compare--band">
+              <img src="assets/screens/before-i1-home.jpg" alt="Before: a small unlabelled treasure-chest emoji sits on the end of the progress bar.">
+              <div class="compare__after"><img src="assets/screens/i1-home.jpg" alt="After: a labelled My rewards button, the same size and shape as Calm Mode, sits beside the progress bar."></div>
+              <span class="compare__line" aria-hidden="true"></span>
+              <span class="compare__knob" aria-hidden="true">‹ ›</span>
+              <input type="range" min="0" max="100" value="62" aria-label="Compare the unlabelled treasure chest with the labelled My rewards button">
+            </div>
+            <figcaption class="compare-caption"><span>Unlabelled chest</span><span>My rewards</span></figcaption>
+          </figure>
+          <figure class="shot-follow">
+            <img class="shot" src="assets/screens/i1-progress.jpg" data-zoom loading="lazy" alt="Progress dashboard with large Home, Goals and Rewards Shop controls, a Parent Area button, and large Bonus Goals and Rewards Shop cards.">
+            <figcaption>Home, Goals and Rewards Shop now use the same large targets as the rest of the platform.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="reflection" aria-labelledby="reflection-h">
+        <div class="section__head reveal">
+          <span class="section__num">10 · Reflection</span>
+          <h2 id="reflection-h">What I would do next</h2>
+        </div>
+        <div class="decisions reveal">
+          <article class="decision"><h3>Read along</h3><p>Connect the shared <code>useReadAloud</code> hook to the flipbook so each page can be spoken for early readers.</p></article>
+          <article class="decision"><h3>Sound, carefully</h3><p>Planned audio feedback was held back: it could itself be a sensory barrier. It should ship muted by default and be tested first.</p></article>
+          <article class="decision"><h3>Test with children</h3><p>With ethical approval, school partners and DBS clearance in place, evaluate with the real audience.</p></article>
+          <article class="decision"><h3>Test sooner</h3><p>The design phase ran long. A good-enough version tested earlier would have taught more than a polished one tested late.</p></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a class="next" href="dentacare.html">
+    <div class="next__card">
+      <div><small>Next case study · 02</small><strong>DentaCare</strong><span>A dental portal for older adults: large, calm and step by step.</span></div>
+      <img src="assets/screens/i2-dashboard.jpg" alt="" aria-hidden="true">
+    </div>
+  </a>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span>Sarah Menla · BSc (Hons) Computer Science final-year project, Royal Holloway, University of London</span>
+      <span><a href="index.html">All case studies</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js?v=see"></script>
+<script>(function () { try { var k = 'hciReturn', r = document.referrer, s = window.sessionStorage; if (r && r.indexOf('/hci-case-studies/') < 0 && new URL(r).origin === location.origin) s.setItem(k, r); var b = document.querySelector('.back-link'), v = s.getItem(k); if (b && v) b.setAttribute('href', v); } catch (e) {} })();</script>
+</body>
+</html>
