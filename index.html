@@ -204,9 +204,9 @@ html[data-dc-canvas] .g-orbit > a.g-card.g-s2, body[data-dc-capturing] .g-orbit 
 /* The held scene fills the window (Benjamin: a tall window left a blank band under the cards); the design canvas keeps 860px */
 :root { --g-vh: calc(100vh - 76px); }
 html[data-dc-canvas], body[data-dc-capturing] { --g-vh: 860px; }
-/* Phones and tall narrow windows (two windows side by side): too narrow for cards beside the profile card, so every project is a full card below it. */
+/* Phones and mid-width windows (two windows side by side): too narrow for the orbit, so every project is a full card below the profile. */
 .g-fallback { display: none; }
-@media (max-width: 719px), ((orientation: portrait) and (max-width: 1099px)) {
+@media (max-width: 1099px) {
   .g-progress { display: none !important; }
   .g-hero .g-bg { position: relative !important; top: 0 !important; height: 100% !important; }
   .g-stage { height: auto !important; }
