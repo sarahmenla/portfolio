@@ -201,9 +201,12 @@ html[data-dc-canvas] .g-orbit > a.g-card.g-s2, body[data-dc-capturing] .g-orbit 
 @media (max-width: 1000px) { .ship-grid > .wide, .ship-grid > .narrow { grid-column: span 6; } }
 @media (max-width: 600px) { .ship-grid > .wide, .ship-grid > .narrow { grid-column: span 12; } }
 @media (prefers-reduced-motion: reduce) { .ship-tile:hover { transform: none; } }
-/* Phones: too narrow for cards beside the profile card, so every project is a full card below it. */
+/* The held scene fills the window (Benjamin: a tall window left a blank band under the cards); the design canvas keeps 860px */
+:root { --g-vh: calc(100vh - 76px); }
+html[data-dc-canvas], body[data-dc-capturing] { --g-vh: 860px; }
+/* Phones and tall narrow windows (two windows side by side): too narrow for cards beside the profile card, so every project is a full card below it. */
 .g-fallback { display: none; }
-@media (max-width: 719px) {
+@media (max-width: 719px), ((orientation: portrait) and (max-width: 1099px)) {
   .g-progress { display: none !important; }
   .g-hero .g-bg { position: relative !important; top: 0 !important; height: 100% !important; }
   .g-stage { height: auto !important; }
@@ -281,7 +284,7 @@ html[data-dc-canvas] .g-orbit > a.g-card.g-s2, body[data-dc-capturing] .g-orbit 
   <div class="g-topbar" style="position: sticky; top: 0; z-index: 60; height: 0; display: flex; justify-content: center; padding: 0 16px"><div style="padding-top: 22px"><nav class="gnav" aria-label="Primary" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; padding: 7px; background: rgba(255,255,255,.74); backdrop-filter: blur(22px) saturate(170%); -webkit-backdrop-filter: blur(22px) saturate(170%); border: 1px solid rgba(255,255,255,.7); border-radius: 999px; box-shadow: 0 14px 36px rgba(90,60,60,.1)"><a href="index.html" aria-label="Home" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 999px; background: rgba(255,255,255,.65); font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 20px; color: #2B2328; text-decoration: none">sm</a><a href="#work" class="navlink" style="padding: 9px 16px; border-radius: 999px; font-size: 14px; color: #4A3F45; text-decoration: none">Work</a><a href="#stack" class="navlink" style="padding: 9px 16px; border-radius: 999px; font-size: 14px; color: #4A3F45; text-decoration: none">Tech stack</a><a href="#contact" class="btn btn-dark" style="display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #2B2328; color: #FBF6F2; font-size: 14px; font-weight: 500; text-decoration: none"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="2"></rect><path d="M3.5 6.5l6.5 4 6.5-4"></path></svg>Contact</a></nav></div></div>
 <!-- HERO: title, profile card and project cards stay in place while the cards change -->
   <section class="g-hero">
-    <div aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; pointer-events: none"><div class="g-bg" style="position: sticky; top: min(0px, calc(100vh - 936px)); height: 936px; overflow: hidden"><svg style="position: absolute; inset: 0; width: 100%; height: 100%; display: block" viewBox="0 0 1440 1140" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <div aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; pointer-events: none"><div class="g-bg" style="position: sticky; top: 0; height: calc(var(--g-vh) + 76px); overflow: hidden"><svg style="position: absolute; inset: 0; width: 100%; height: 100%; display: block" viewBox="0 0 1440 1140" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <defs>
         <linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C6C0D7"></stop><stop offset=".38" stop-color="#E2CDD1"></stop><stop offset=".64" stop-color="#F1D8C8"></stop><stop offset="1" stop-color="#F4E7DA"></stop></linearGradient>
         <radialGradient id="gsun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FBE3C6" stop-opacity=".95"></stop><stop offset="1" stop-color="#FBE3C6" stop-opacity="0"></stop></radialGradient>
@@ -318,8 +321,8 @@ html[data-dc-canvas] .g-orbit > a.g-card.g-s2, body[data-dc-capturing] .g-orbit 
       <rect y="1020" width="1440" height="120" fill="url(#gfade)"></rect>
     </svg></div></div>
     <div aria-hidden="true" style="height: 76px"></div>
-  <div class="g-stage" style="position: relative; z-index: 2; height: calc(min(860px, 100vh - 76px) + 5400px)">
-    <div class="g-held" style="position: sticky; top: 76px; height: min(860px, calc(100vh - 76px)); display: flex; flex-direction: column; align-items: center; width: 100%">
+  <div class="g-stage" style="position: relative; z-index: 2; height: calc(var(--g-vh) + 5400px)">
+    <div class="g-held" style="position: sticky; top: 76px; height: var(--g-vh); display: flex; flex-direction: column; align-items: center; width: 100%">
     <div class="g-title" style="position: relative; z-index: 2; width: 100%; max-width: 1180px; padding: 14px 24px 0; box-sizing: border-box; text-align: center"><h1 class="g-h1" style="margin: 0; font-weight: 300; font-size: clamp(32px, 4.1vw, 54px); line-height: 1.06; letter-spacing: -0.035em">Software engineering, <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em">from API to interface.</span></h1><p class="g-sub" style="margin: 13px auto 0; font-size: 14.5px; line-height: 1.5; color: #4A3F45"><span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 19px; letter-spacing: -0.01em; color: #2B2328">Sarah Menla</span><span style="color: rgba(43,35,40,.3)">&nbsp;&nbsp;·&nbsp;&nbsp;</span>Computer Science BSc, Royal Holloway &middot; 2026</p><div class="g-capsule" style="display: flex; justify-content: center; margin-top: 14px"><nav class="cap-paths" aria-label="Order the work for a kind of role" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 560px; margin: 0"><a href="index.html" aria-label="All projects" style="background: rgba(255,255,255,.66); color: #2B2328; border: 1px solid rgba(255,255,255,.95)">All</a><a href="engineering.html" aria-current="page" aria-label="Engineering" style="background: #2B2328; color: #FBF6F2; border: 1px solid #2B2328">Engineering</a><a href="ai-and-data.html" aria-label="AI &amp; Data" style="background: rgba(255,255,255,.66); color: #2B2328; border: 1px solid rgba(255,255,255,.95)">AI &amp; Data</a><a href="product.html" aria-label="Product &amp; UX" style="background: rgba(255,255,255,.66); color: #2B2328; border: 1px solid rgba(255,255,255,.95)">Product &amp; UX</a></nav></div></div>
     <div class="g-view" style="position: relative; z-index: 1; width: 100%; flex: 1 1 auto; min-height: 0; display: flex; justify-content: center; align-items: flex-start; margin-top: calc(-1 * var(--gx, 0px)); padding-top: calc(48px + var(--gx, 0px)); box-sizing: border-box; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent var(--gm, 0px), #000 calc(var(--gm, 0px) + 28px), #000 calc(100% - 14px), transparent 100%); mask-image: linear-gradient(180deg, transparent var(--gm, 0px), #000 calc(var(--gm, 0px) + 28px), #000 calc(100% - 14px), transparent 100%)">
       <div class="g-grow" style="transform-origin: 50% 0; transition: transform 320ms cubic-bezier(.2,.7,.2,1); will-change: transform"><div class="g-orbit" style="position: relative; width: 340px; min-height: 566px; display: flex; align-items: center">
@@ -468,10 +471,13 @@ html[data-dc-canvas] .g-orbit > a.g-card.g-s2, body[data-dc-capturing] .g-orbit 
   var rowH = [262, 262, 262, 262], BIG = 0.10, GAP = 14;   // each row's tallest card, the spotlight size, the gap under it
   function fit() {
     var w = window.innerWidth, h = window.innerHeight;
-    if (w < 720) { root.style.removeProperty('--g-zoom'); gx = 0; growS = 1; growY = 0; var gv0 = document.querySelector('.g-view'); if (gv0) gv0.style.removeProperty('--gx'); var gw0 = document.querySelector('.g-grow'); if (gw0) gw0.style.transform = 'none'; return; }
+    var fb0 = document.querySelector('.g-fallback');
+    if (w < 720 || (fb0 && getComputedStyle(fb0).display !== 'none')) { root.style.removeProperty('--g-zoom'); gx = 0; growS = 1; growY = 0; var gv0 = document.querySelector('.g-view'); if (gv0) gv0.style.removeProperty('--gx'); var gw0 = document.querySelector('.g-grow'); if (gw0) gw0.style.transform = 'none'; return; }
     var t = document.querySelector('.g-title');
     var th = t ? t.offsetHeight : 120;
-    var z = Math.min(1.08, (w - 40) / 900, (h - 76 - th - 48 - 12 - 14) / 574);
+    var onCanvas = root.hasAttribute('data-dc-canvas') || (document.body && document.body.hasAttribute('data-dc-capturing'));
+    var zcap = onCanvas ? 1.08 : Math.min(1.28, 1.08 + Math.max(0, (h - 980) / 1000));   // a tall window gets slightly larger cards instead of empty sky (not on the design canvas, whose window is the whole board)
+    var z = Math.min(zcap, (w - 40) / 900, (h - 76 - th - 48 - 12 - 14) / 574);
     root.style.setProperty('--g-zoom', Math.max(0.62, z).toFixed(3));
     // how far the cards may rise before they are clipped: from under the role chips up to just under the headline
     var h1 = document.querySelector('.g-title .g-h1'), gv = document.querySelector('.g-view');
